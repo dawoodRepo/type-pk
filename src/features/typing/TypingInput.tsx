@@ -33,8 +33,10 @@ const TypingInput = ({ value, onChange, onKeyDown, disabled }: TypingInputProps)
       id="typing-input"
       name="typing-input"
       autoCorrect="off"
-      autoCapitalize="off"
+      autoCapitalize="none"
+      autoComplete="new-password"
       spellCheck={false}
+      inputMode="text"
       placeholder={disabled ? '' : 'Start typing...'}
       className="w-full bg-transparent font-mono text-lg text-light-text dark:text-dark-text outline-none placeholder:text-light-subtext/40 dark:placeholder:text-dark-subtext/40 caret-primary-500"
     />

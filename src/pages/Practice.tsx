@@ -288,7 +288,7 @@ const Practice = () => {
 
       {/* FINISHED STATE */}
       {engine.testStatus === 'finished' && engine.results && (
-        <div className="max-w-2xl mx-auto px-4 pt-8">
+        <div className="max-w-2xl mx-auto px-4 pt-24 pb-20">
           <ResultsCard
             results={engine.results}
             onTryAgain={() => engine.initTest({ mode, selectedTime: mode === 'exam' ? examTime : practiceTime, customPassage: customPassage.trim() || undefined })}

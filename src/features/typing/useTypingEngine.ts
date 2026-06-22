@@ -145,7 +145,7 @@ export const useTypingEngine = () => {
       if (trimmed.length === 0) return
 
       const isWrong = currentWordIndex < passageWords.length &&
-        trimmed !== passageWords[currentWordIndex]
+        trimmed.trim() !== passageWords[currentWordIndex].trim()
 
       const newLockedWords = [...lockedWords, trimmed]
       setLockedWords(newLockedWords)

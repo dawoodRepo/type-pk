@@ -100,31 +100,31 @@ const ResultsCard = ({ results, onTryAgain, onExit, selectedTime, mode }: Result
   return (
     <div className="flex flex-col gap-5 pb-20">
 
-      {/* Header, our existing layout with Exit + Try Again */}
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h2 className="text-2xl font-bold text-light-text dark:text-dark-text mb-1">
-            Test Complete
-          </h2>
-          <p className="text-sm text-light-subtext dark:text-dark-subtext">
-            {selectedTime === 0 ? 'Unlimited' : `${selectedTime} min`} · {results.totalCharactersTyped} characters
-          </p>
-        </div>
-        <div className="flex items-center gap-3">
-          <button
-            onClick={onExit}
-            className="flex items-center gap-1.5 text-xs text-light-subtext dark:text-dark-subtext hover:text-light-text dark:hover:text-dark-text transition-colors duration-200 group"
-          >
-            <ArrowLeft size={13} className="group-hover:-translate-x-0.5 transition-transform duration-200" />
-            Exit
-          </button>
-          <button
-            onClick={onTryAgain}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-light-border dark:border-dark-border text-light-subtext dark:text-dark-subtext text-sm font-medium hover:border-primary-500 hover:text-primary-500 transition-all duration-200 group"
-          >
-            <RotateCcw size={15} className="group-hover:rotate-180 transition-transform duration-500" />
-            Try Again
-          </button>
+      {/* Header */}
+      <div className="flex flex-col gap-2">
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <h2 className="text-2xl font-bold text-light-text dark:text-dark-text">Test Complete</h2>
+            <p className="text-sm text-light-subtext dark:text-dark-subtext mt-0.5">
+              {selectedTime === 0 ? 'Unlimited' : `${selectedTime} min`} · {results.totalCharactersTyped} characters
+            </p>
+          </div>
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              onClick={onExit}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-light-border dark:border-dark-border text-xs text-light-subtext dark:text-dark-subtext hover:text-light-text dark:hover:text-dark-text hover:border-primary-500 transition-all duration-200 group"
+            >
+              <ArrowLeft size={13} className="group-hover:-translate-x-0.5 transition-transform duration-200" />
+              Exit
+            </button>
+            <button
+              onClick={onTryAgain}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-light-border dark:border-dark-border text-xs text-light-subtext dark:text-dark-subtext hover:border-primary-500 hover:text-primary-500 transition-all duration-200 group"
+            >
+              <RotateCcw size={13} className="group-hover:rotate-180 transition-transform duration-500" />
+              Try Again
+            </button>
+          </div>
         </div>
       </div>
 
