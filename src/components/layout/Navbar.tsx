@@ -77,7 +77,7 @@ const Navbar = () => {
 
         {/* Right side: theme toggle + hamburger */}
         <div className="flex items-center gap-2">
-          {/* Theme Toggle — always visible */}
+          {/* Theme Toggle, always visible */}
           <button
             onClick={toggleTheme}
             className="p-2 rounded-lg border border-light-border dark:border-dark-border bg-light-surface/80 dark:bg-dark-surface/80 hover:border-primary-500 transition-all duration-200"
@@ -89,7 +89,7 @@ const Navbar = () => {
             }
           </button>
 
-          {/* Hamburger — mobile only */}
+          {/* Hamburger, mobile only */}
           <button
             onClick={() => setMenuOpen(prev => !prev)}
             className="md:hidden p-2 rounded-lg border border-light-border dark:border-dark-border bg-light-surface/80 dark:bg-dark-surface/80 hover:border-primary-500 transition-all duration-200"

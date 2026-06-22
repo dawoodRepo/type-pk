@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Keyboard } from 'lucide-react'
+import Logo from '../logo/Logo'
 
 const Footer = () => {
   return (
@@ -7,10 +7,9 @@ const Footer = () => {
       <div className="max-w-6xl mx-auto px-4 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
 
         {/* Brand */}
-        <div className="flex items-center gap-2 text-primary-600 dark:text-primary-400 font-bold">
-          <Keyboard size={20} />
-          <span>TypePK</span>
-        </div>
+        <Link to="/">
+          <Logo className="text-base" />
+        </Link>
 
         {/* Links */}
         <div className="flex items-center gap-6 text-sm text-light-subtext dark:text-dark-subtext">

@@ -44,7 +44,7 @@ const AdUnit = ({ slot, className = '' }: AdUnitProps) => {
           rounded-xl bg-light-surface/50 dark:bg-dark-surface/50`}
       >
         <span className="text-xs text-light-subtext dark:text-dark-subtext opacity-50">
-          Ad — {slot}
+          Ad, {slot}
         </span>
       </div>
     )

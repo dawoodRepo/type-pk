@@ -14,7 +14,7 @@ const posts = [
   {
     slug: 'etea-typing-test-rules',
     title: 'ETEA Typing Test Rules You Must Know Before Exam Day',
-    excerpt: 'Backspace restrictions, word locking, case sensitivity — the ETEA typing environment has rules that most candidates discover too late. Know them before you sit down.',
+    excerpt: 'Backspace restrictions, word locking, case sensitivity, the ETEA typing environment has rules that most candidates discover too late. Know them before you sit down.',
     category: 'Exam Guide',
     readTime: '5 min read',
     date: 'June 2026',
@@ -29,7 +29,7 @@ const posts = [
   },
   {
     slug: 'junior-clerk-typing-test-guide',
-    title: 'Junior Clerk Typing Test — Complete Preparation Guide',
+    title: 'Junior Clerk Typing Test, Complete Preparation Guide',
     excerpt: 'Everything you need to know about the Junior Clerk typing requirement: minimum WPM, accuracy threshold, exam format, and how to practice effectively.',
     category: 'Job Guide',
     readTime: '7 min read',
@@ -45,7 +45,7 @@ const posts = [
   },
   {
     slug: 'computer-operator-typing-requirements',
-    title: 'Computer Operator Typing Test — What 40 WPM Actually Feels Like',
+    title: 'Computer Operator Typing Test, What 40 WPM Actually Feels Like',
     excerpt: 'The Computer Operator post requires 40 WPM with 95% accuracy. Here is what that looks like in practice and a realistic timeline to get there.',
     category: 'Job Guide',
     readTime: '5 min read',

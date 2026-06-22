@@ -29,9 +29,9 @@ We do not sell, rent, trade, or share any data with third parties for marketing 
     title: 'Third Party Services',
     content: `TypePK may use the following third-party services, each with their own privacy policies:
 
-- Google Analytics — for understanding site traffic and usage patterns
-- Google AdSense — for displaying advertisements
-- Cloudflare — for hosting and content delivery
+- Google Analytics, for understanding site traffic and usage patterns
+- Google AdSense, for displaying advertisements
+- Cloudflare, for hosting and content delivery
 
 We encourage you to review the privacy policies of these services if you have concerns about how they handle data.`
   },

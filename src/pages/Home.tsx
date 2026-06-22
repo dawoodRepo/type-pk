@@ -6,7 +6,7 @@ const features = [
   {
     icon: <Target size={22} />,
     title: 'ETEA Accurate',
-    description: 'Mirrors the exact ETEA typing environment — same rules, same restrictions, same pressure.'
+    description: 'Mirrors the exact ETEA typing environment, same rules, same restrictions, same pressure.'
   },
   {
     icon: <Clock size={22} />,
@@ -37,7 +37,7 @@ const Home = () => {
     <main className="min-h-screen bg-light-bg dark:bg-dark-bg pt-16">
       <SEO
         title="Free ETEA Typing Test Practice"
-        description="Practice for your ETEA typing test online. Mirrors the real exam environment — same rules, same passages, same pressure. Free, no account needed."
+        description="Practice for your ETEA typing test online. Mirrors the real exam environment, same rules, same passages, same pressure. Free, no account needed."
         canonical="/"
       />
 
@@ -61,7 +61,7 @@ const Home = () => {
 
         {/* Subheading */}
         <p className="text-lg text-light-subtext dark:text-dark-subtext max-w-xl leading-relaxed">
-          Practice in an environment that mirrors the real ETEA exam. Same interface, same rules, same pressure — so exam day feels familiar.
+          Practice in an environment that mirrors the real ETEA exam. Same interface, same rules, same pressure, so exam day feels familiar.
         </p>
 
         {/* CTA Buttons */}
@@ -137,7 +137,7 @@ const Home = () => {
               Ready to hit 30 WPM?
             </h2>
             <p className="text-primary-100 text-sm">
-              Start practicing now — it's free, no account needed.
+              Start practicing now, it's free, no account needed.
             </p>
           </div>
           <Link

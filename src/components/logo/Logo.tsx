@@ -26,12 +26,12 @@ const LogoMark = ({ size = 32, className = '' }: LogoMarkProps) => {
       {/* Keyboard body */}
       <rect width="88" height="70" rx="12" fill={bgFill} stroke={bgStroke} strokeWidth="1.5" />
 
-      {/* Three keys — fading in opacity */}
+      {/* Three keys, fading in opacity */}
       <rect x="14" y="13" width="16" height="14" rx="3" fill={keyFill} opacity="0.25" />
       <rect x="35" y="13" width="16" height="14" rx="3" fill={keyFill} opacity="0.65" />
       <rect x="56" y="13" width="16" height="14" rx="3" fill={keyFill} />
 
-      {/* Spacebar — slimmer */}
+      {/* Spacebar, slimmer */}
       <rect x="14" y="33" width="58" height="10" rx="3" fill={keyFill} />
     </svg>
   )

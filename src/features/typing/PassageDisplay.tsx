@@ -15,7 +15,7 @@ const PassageDisplay = ({
     <div className="font-mono text-base md:text-lg leading-8 md:leading-10 flex flex-wrap gap-x-2 md:gap-x-3 gap-y-1.5 md:gap-y-2 select-none">
       {passageWords.map((word, wordIdx) => {
 
-        // Locked word — show as green or red based on correctness
+        // Locked word, show as green or red based on correctness
         if (wordIdx < currentWordIndex) {
           const typedWord = lockedWords[wordIdx] || ''
           const wasCorrect = typedWord === word
@@ -33,7 +33,7 @@ const PassageDisplay = ({
           )
         }
 
-        // Current word — highlight with underline, no character coloring
+        // Current word, highlight with underline, no character coloring
         if (wordIdx === currentWordIndex) {
           return (
             <span
@@ -48,7 +48,7 @@ const PassageDisplay = ({
           )
         }
 
-        // Upcoming words — plain gray
+        // Upcoming words, plain gray
         return (
           <span key={wordIdx} className="text-light-subtext dark:text-dark-subtext">
             {word}

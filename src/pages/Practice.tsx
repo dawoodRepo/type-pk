@@ -155,7 +155,7 @@ const Practice = () => {
             )}
           </div>
 
-          {/* Custom Passage — practice mode only */}
+          {/* Custom Passage, practice mode only */}
           {mode === 'practice' && (
             <div className="flex flex-col gap-2">
               {!showCustomPassage ? (

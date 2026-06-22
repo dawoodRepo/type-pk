@@ -13,7 +13,7 @@ interface ResultsCardProps {
 const getWPMMessage = (wpm: number, accuracy: number) => {
   if (wpm === 0) return {
     headline: "Let's start from the beginning.",
-    tip: "Don't worry — everyone starts somewhere. Try typing slowly and deliberately first."
+    tip: "Don't worry, everyone starts somewhere. Try typing slowly and deliberately first."
   }
   if (wpm < 15) return {
     headline: "Early days. Keep going.",
@@ -21,7 +21,7 @@ const getWPMMessage = (wpm: number, accuracy: number) => {
   }
   if (wpm < 25) return {
     headline: "You're building momentum.",
-    tip: "Try not to look at your hands. Trust your fingers — muscle memory is forming."
+    tip: "Try not to look at your hands. Trust your fingers, muscle memory is forming."
   }
   if (wpm < 30) return {
     headline: "So close to the Junior Clerk threshold.",
@@ -31,7 +31,7 @@ const getWPMMessage = (wpm: number, accuracy: number) => {
   }
   if (wpm < 35) return {
     headline: "Junior Clerk: within reach.",
-    tip: "You're past the basic threshold. Now aim for 45 WPM in practice — that gives you a comfortable buffer on exam day."
+    tip: "You're past the basic threshold. Now aim for 45 WPM in practice, that gives you a comfortable buffer on exam day."
   }
   if (wpm < 40) return {
     headline: "Solid. Now push for Computer Operator level.",
@@ -39,7 +39,7 @@ const getWPMMessage = (wpm: number, accuracy: number) => {
   }
   if (wpm < 50) return {
     headline: "Computer Operator territory. Well done.",
-    tip: "You're comfortably above both thresholds. Focus on maintaining this under pressure — exam nerves can cost 5-10 WPM."
+    tip: "You're comfortably above both thresholds. Focus on maintaining this under pressure, exam nerves can cost 5-10 WPM."
   }
   if (wpm < 65) return {
     headline: "Impressive speed. You're exam-ready.",
@@ -47,7 +47,7 @@ const getWPMMessage = (wpm: number, accuracy: number) => {
   }
   return {
     headline: "Elite level. You're in the top tier.",
-    tip: "Very few candidates reach this speed. Make sure you can replicate this consistently — not just on good days."
+    tip: "Very few candidates reach this speed. Make sure you can replicate this consistently, not just on good days."
   }
 }
 
@@ -76,17 +76,17 @@ const getEligibilityStatus = (wpm: number, accuracy: number) => {
     bg: "bg-green-100 dark:bg-green-500/10 border-green-300 dark:border-green-500/20"
   }
   if (wpm >= 30 && !passesAccuracy) return {
-    text: "Speed okay — accuracy below 95% threshold",
+    text: "Speed okay, accuracy below 95% threshold",
     color: "text-yellow-700 dark:text-yellow-400",
     bg: "bg-yellow-100 dark:bg-yellow-500/10 border-yellow-300 dark:border-yellow-500/20"
   }
   if (wpm >= 25) return {
-    text: "Not yet eligible — close to Junior Clerk threshold",
+    text: "Not yet eligible, close to Junior Clerk threshold",
     color: "text-yellow-700 dark:text-yellow-400",
     bg: "bg-yellow-100 dark:bg-yellow-500/10 border-yellow-300 dark:border-yellow-500/20"
   }
   return {
-    text: "Keep practicing — not yet at exam level",
+    text: "Keep practicing, not yet at exam level",
     color: "text-red-700 dark:text-red-400",
     bg: "bg-red-100 dark:bg-red-500/10 border-red-300 dark:border-red-500/20"
   }
@@ -100,7 +100,7 @@ const ResultsCard = ({ results, onTryAgain, onExit, selectedTime, mode }: Result
   return (
     <div className="flex flex-col gap-5 pb-20">
 
-      {/* Header — our existing layout with Exit + Try Again */}
+      {/* Header, our existing layout with Exit + Try Again */}
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-2xl font-bold text-light-text dark:text-dark-text mb-1">
@@ -179,7 +179,7 @@ const ResultsCard = ({ results, onTryAgain, onExit, selectedTime, mode }: Result
         ))}
       </div>
 
-      {/* Eligibility — exam mode only */}
+      {/* Eligibility, exam mode only */}
       {mode === 'exam' && (
         <div className={`rounded-xl border p-4 flex items-center gap-3 ${eligibility.bg}`}>
           <TrendingUp size={16} className={eligibility.color} />

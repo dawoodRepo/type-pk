@@ -41,7 +41,7 @@ const About = () => {
             About TypePK
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-light-text dark:text-dark-text leading-tight">
-            Built for one reason —{' '}
+            Built for one reason,{' '}
             <span className="text-primary-500 dark:text-primary-400">
               help you pass
             </span>
@@ -50,7 +50,7 @@ const About = () => {
             TypePK was built because most typing practice sites are made for general audiences. They use random word lists, allow infinite backspace, show live WPM graphs, and feel nothing like what you actually face in an ETEA exam hall.
           </p>
           <p className="text-light-subtext dark:text-dark-subtext leading-relaxed">
-            We built the opposite. A strict, focused environment that matches the real exam — same passage style, same backspace rules, same word locking, same pressure. So when you sit down on exam day, it already feels familiar.
+            We built the opposite. A strict, focused environment that matches the real exam, same passage style, same backspace rules, same word locking, same pressure. So when you sit down on exam day, it already feels familiar.
           </p>
         </div>
 
@@ -75,7 +75,7 @@ const About = () => {
             ))}
           </div>
           <p className="text-light-subtext dark:text-dark-subtext leading-relaxed text-sm">
-            The test is conducted at ETEA designated computer labs. You are given a formal paragraph to copy-type within a fixed time limit. Mistakes are penalized, and both speed and accuracy must independently meet the cutoff — they are not averaged together.
+            The test is conducted at ETEA designated computer labs. You are given a formal paragraph to copy-type within a fixed time limit. Mistakes are penalized, and both speed and accuracy must independently meet the cutoff, they are not averaged together.
           </p>
         </div>
 
