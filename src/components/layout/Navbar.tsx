@@ -1,7 +1,8 @@
 import { Link, useLocation } from 'react-router-dom'
 import { useTheme } from '../../context/ThemeContext'
-import { Sun, Moon, Keyboard, Menu, X } from 'lucide-react'
+import { Sun, Moon, Menu, X } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
+import Logo from '../logo/Logo'
 
 const navLinks = [
   { label: 'Practice', path: '/practice' },
@@ -53,9 +54,8 @@ const Navbar = () => {
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
 
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 font-bold text-xl text-primary-600 dark:text-primary-400">
-          <Keyboard size={24} />
-          <span>TypePK</span>
+        <Link to="/">
+          <Logo />
         </Link>
 
         {/* Desktop Nav Links */}
