@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://typepk.com/sitemap.xml
+Sitemap: https://type-pk.com/sitemap.xml

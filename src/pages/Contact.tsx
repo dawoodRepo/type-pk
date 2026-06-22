@@ -51,7 +51,7 @@ const Contact = () => {
               {
                 icon: <Mail size={18} />,
                 title: 'Email',
-                value: 'hello@typepk.com',
+                value: 'hello@type-pk.com',
                 sub: 'We reply within 24 hours'
               },
               {

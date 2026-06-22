@@ -45,7 +45,7 @@ We encourage you to review the privacy policies of these services if you have co
   },
   {
     title: 'Contact',
-    content: `If you have any questions about this Privacy Policy or how your data is handled, please contact us at hello@typepk.com. We will respond within 24 hours.`
+    content: `If you have any questions about this Privacy Policy or how your data is handled, please contact us at hello@type-pk.com. We will respond within 24 hours.`
   },
 ]
 

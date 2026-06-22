@@ -5,8 +5,13 @@ import { calculateResults } from '../../utils/calculateWPM'
 
 interface InitTestParams {
   mode: 'exam' | 'practice'
-  selectedTime: number // 0 = unlimited
+  selectedTime: number
   customPassage?: string
+}
+
+const getRandomPassageWords = (passages: typeof import('../../data/passages').passages) => {
+  const randomIndex = Math.floor(Math.random() * passages.length)
+  return passages[randomIndex].content.trim().split(/\s+/).filter(Boolean)
 }
 
 export const useTypingEngine = () => {
@@ -30,6 +35,7 @@ export const useTypingEngine = () => {
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const startTimeRef = useRef<number | null>(null)
   const submitTestRef = useRef<() => void>(() => {})
+  const lastInitParams = useRef<InitTestParams | null>(null)
 
   const clearTimer = useCallback(() => {
     if (timerRef.current) {
@@ -38,29 +44,18 @@ export const useTypingEngine = () => {
     }
   }, [])
 
-  const pickRandomPassage = useCallback(() => {
-    const randomIndex = Math.floor(Math.random() * passages.length)
-    return passages[randomIndex]
+  useEffect(() => {
+    const words = getRandomPassageWords(passages)
+    setPassage(words.join(' '))
+    setPassageWords(words)
   }, [])
 
-  useEffect(() => {
-    const selected = pickRandomPassage()
-    setPassage(selected.content)
-    setPassageWords(selected.content.split(' '))
-  }, [pickRandomPassage])
-
-  const initTest = useCallback(({ mode: newMode, selectedTime: newTime, customPassage }: InitTestParams) => {
-    clearTimer()
-    const unlimited = newTime === 0
-    const words = customPassage
-      ? customPassage.split(' ')
-      : (() => { const s = pickRandomPassage(); return s.content.split(' ') })()
-    const passageContent = words.join(' ')
-
-    setMode(newMode)
+  const applyTestState = useCallback((params: InitTestParams, words: string[]) => {
+    const unlimited = params.selectedTime === 0
+    setMode(params.mode)
     setIsUnlimited(unlimited)
-    setSelectedTime(unlimited ? 0 : newTime)
-    setPassage(passageContent)
+    setSelectedTime(params.selectedTime)
+    setPassage(words.join(' '))
     setPassageWords(words)
     setTypedText('')
     setCurrentWordIndex(0)
@@ -70,31 +65,22 @@ export const useTypingEngine = () => {
     startTimeRef.current = null
     setCurrentInput('')
     setResults(null)
-    setTimeLeft(unlimited ? 0 : newTime * 60)
+    setTimeLeft(unlimited ? 0 : params.selectedTime * 60)
     setTimerStarted(false)
     setResetKey(k => k + 1)
     setTestStatus('running')
-  }, [clearTimer, pickRandomPassage])
+  }, [])
 
-  const startTest = useCallback(() => {
+  const initTest = useCallback((params: InitTestParams) => {
     clearTimer()
-    const selected = pickRandomPassage()
-    const words = selected.content.split(' ')
+    lastInitParams.current = params
 
-    setPassage(selected.content)
-    setPassageWords(words)
-    setTypedText('')
-    setCurrentWordIndex(0)
-    setLockedWords([])
-    setErrors(0)
-    setStartTime(null)
-    startTimeRef.current = null
-    setCurrentInput('')
-    setResults(null)
-    setTimeLeft(selectedTime * 60)
-    setTimerStarted(false)
-    setTestStatus('running')
-  }, [selectedTime, pickRandomPassage, clearTimer])
+    const words = params.mode === 'practice' && params.customPassage?.trim()
+      ? params.customPassage.trim().split(/\s+/).filter(Boolean)
+      : getRandomPassageWords(passages)
+
+    applyTestState(params, words)
+  }, [clearTimer, applyTestState])
 
   const submitTest = useCallback(() => {
     clearTimer()
@@ -102,14 +88,7 @@ export const useTypingEngine = () => {
       ? (Date.now() - startTimeRef.current) / 1000
       : selectedTime * 60
 
-    const finalResults = calculateResults(
-      lockedWords,
-      passageWords,
-      currentInput,
-      selectedTime,
-      elapsed
-    )
-    setResults(finalResults)
+    setResults(calculateResults(lockedWords, passageWords, currentInput, selectedTime, elapsed))
     setTestStatus('finished')
   }, [lockedWords, passageWords, currentInput, selectedTime, clearTimer])
 
@@ -117,53 +96,40 @@ export const useTypingEngine = () => {
 
   const resetTest = useCallback(() => {
     clearTimer()
-    const selected = pickRandomPassage()
-    const words = selected.content.split(' ')
+    const params = lastInitParams.current
+    if (!params) { setTestStatus('idle'); return }
 
-    setPassage(selected.content)
-    setPassageWords(words)
-    setTypedText('')
-    setCurrentWordIndex(0)
-    setLockedWords([])
-    setErrors(0)
-    setStartTime(null)
-    startTimeRef.current = null
-    setCurrentInput('')
-    setResults(null)
-    setTimeLeft(selectedTime * 60)
-    setTimerStarted(false)
-    setResetKey(k => k + 1)
-    setTestStatus('running')
-  }, [clearTimer, pickRandomPassage, selectedTime])
+    const freshParams: InitTestParams = { mode: params.mode, selectedTime: params.selectedTime }
+    lastInitParams.current = freshParams
+    applyTestState(freshParams, getRandomPassageWords(passages))
+  }, [clearTimer, applyTestState])
+
+  const startTest = useCallback(() => {
+    initTest({ mode: 'exam', selectedTime })
+  }, [selectedTime, initTest])
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
     if (testStatus !== 'running') return
 
     if (e.key === ' ') {
       e.preventDefault()
-
       if (currentInput.length === 0) return
 
-      const isWrong = currentWordIndex < passageWords.length && currentInput !== passageWords[currentWordIndex]
+      const isWrong = currentWordIndex < passageWords.length &&
+        currentInput !== passageWords[currentWordIndex]
 
       const newLockedWords = [...lockedWords, currentInput]
       setLockedWords(newLockedWords)
       setCurrentInput('')
       setCurrentWordIndex(prev => prev + 1)
-
-      if (isWrong) {
-        setErrors(prev => prev + 1)
-      }
-
+      if (isWrong) setErrors(prev => prev + 1)
       setTypedText(newLockedWords.join(' ') + ' ')
 
       if (newLockedWords.length >= passageWords.length) {
         submitTestRef.current()
       }
     } else if (e.key === 'Backspace') {
-      if (currentInput.length === 0) {
-        e.preventDefault()
-      }
+      if (currentInput.length === 0) e.preventDefault()
     }
   }, [testStatus, currentInput, currentWordIndex, passageWords, lockedWords])
 
@@ -171,34 +137,29 @@ export const useTypingEngine = () => {
     if (testStatus !== 'running') return
     if (value.endsWith(' ')) return
 
-    if (value.length > 0) {
-      // Start timer on first character
-      if (!timerStarted) {
-        startTimeRef.current = Date.now()
-        setStartTime(startTimeRef.current)
-        setTimerStarted(true)
+    if (value.length > 0 && !timerStarted) {
+      startTimeRef.current = Date.now()
+      setStartTime(startTimeRef.current)
+      setTimerStarted(true)
 
-        timerRef.current = setInterval(() => {
-          if (isUnlimited) {
-            setTimeLeft(prev => prev + 1)
-          } else {
-            setTimeLeft(prev => {
-              if (prev <= 1) {
-                clearInterval(timerRef.current!)
-                timerRef.current = null
-                submitTestRef.current()
-                return 0
-              }
-              return prev - 1
-            })
-          }
-        }, 1000)
-      }
-
-      setCurrentInput(value)
-    } else {
-      setCurrentInput(value)
+      timerRef.current = setInterval(() => {
+        if (isUnlimited) {
+          setTimeLeft(prev => prev + 1)
+        } else {
+          setTimeLeft(prev => {
+            if (prev <= 1) {
+              clearInterval(timerRef.current!)
+              timerRef.current = null
+              submitTestRef.current()
+              return 0
+            }
+            return prev - 1
+          })
+        }
+      }, 1000)
     }
+
+    setCurrentInput(value)
   }, [testStatus, timerStarted, isUnlimited])
 
   useEffect(() => {

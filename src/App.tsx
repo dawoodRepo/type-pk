@@ -1,7 +1,8 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { lazy, Suspense } from 'react'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { lazy, Suspense, useEffect } from 'react'
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
+import Spinner from './components/Spinner'
 import Home from './pages/Home'
 import Practice from './pages/Practice'
 
@@ -12,15 +13,18 @@ const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'))
 const Blog = lazy(() => import('./pages/Blog'))
 const BlogPost = lazy(() => import('./pages/BlogPost'))
 
+const ScrollToTop = () => {
+  const { pathname } = useLocation()
+  useEffect(() => { window.scrollTo(0, 0) }, [pathname])
+  return null
+}
+
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Navbar />
-      <Suspense fallback={
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="w-6 h-6 rounded-full border-2 border-primary-500 border-t-transparent animate-spin" />
-        </div>
-      }>
+      <Suspense fallback={<Spinner />}>
         <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/practice" element={<Practice />} />

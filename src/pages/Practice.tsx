@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useTypingEngine } from '../features/typing/useTypingEngine'
 import TestTimer from '../features/typing/TestTimer'
 import PassageDisplay from '../features/typing/PassageDisplay'
@@ -25,21 +25,16 @@ const Practice = () => {
   const [examTime, setExamTime] = useState<ExamTime>(3)
   const [practiceTime, setPracticeTime] = useState<PracticeTime>(3)
   const [customPassage, setCustomPassage] = useState('')
-  const [customPassageError, setCustomPassageError] = useState('')
   const [setupDone, setSetupDone] = useState(false)
   const [showCustomPassage, setShowCustomPassage] = useState(false)
 
   const engine = useTypingEngine()
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [setupDone, engine.testStatus])
+
   const handleStart = () => {
-    if (mode === 'practice' && customPassage.trim()) {
-      const wordCount = customPassage.trim().split(/\s+/).length
-      if (wordCount < 50) {
-        setCustomPassageError('Passage too short. Please enter at least 50 words for meaningful practice.')
-        return
-      }
-    }
-    setCustomPassageError('')
     setSetupDone(true)
     const selectedTime = mode === 'exam' ? examTime : practiceTime
     engine.initTest({
@@ -179,12 +174,8 @@ const Practice = () => {
                       Custom Passage
                     </p>
                     <div className="flex items-center gap-3">
-                      <span className={`text-xs ${customPassage.trim().split(/\s+/).filter(Boolean).length < 50 && customPassage.length > 0 ? 'text-red-400' : 'text-light-subtext dark:text-dark-subtext'}`}>
-                        {customPassage.trim() === '' ? 0 : customPassage.trim().split(/\s+/).filter(Boolean).length} words
-                        {customPassage.length > 0 && ' (min 50)'}
-                      </span>
                       <button
-                        onClick={() => { setShowCustomPassage(false); setCustomPassage(''); setCustomPassageError('') }}
+                        onClick={() => { setShowCustomPassage(false); setCustomPassage('') }}
                         className="text-xs text-light-subtext dark:text-dark-subtext hover:text-red-400 transition-colors"
                       >
                         ✕ Remove
@@ -193,17 +184,12 @@ const Practice = () => {
                   </div>
                   <textarea
                     value={customPassage}
-                    onChange={e => {
-                      setCustomPassage(e.target.value)
-                      setCustomPassageError('')
-                    }}
+                    onChange={e => setCustomPassage(e.target.value)}
                     placeholder="Paste your own passage here..."
                     rows={5}
                     className="w-full px-4 py-3 rounded-xl border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface text-light-text dark:text-dark-text text-sm outline-none focus:border-primary-500 transition-colors duration-200 placeholder:text-light-subtext/40 dark:placeholder:text-dark-subtext/40 resize-none font-mono"
                   />
-                  {customPassageError && (
-                    <p className="text-xs text-red-400">{customPassageError}</p>
-                  )}
+
                 </div>
               )}
             </div>
@@ -229,7 +215,7 @@ const Practice = () => {
 
       {/* RUNNING STATE */}
       {engine.testStatus === 'running' && (
-        <div className="max-w-4xl mx-auto px-4 pt-8 pb-4 flex flex-col gap-4" style={{ height: 'calc(100vh - 64px)' }}>
+        <div className="max-w-4xl mx-auto px-4 pt-2 pb-4 flex flex-col gap-4" style={{ height: 'calc(100vh - 64px)' }}>
 
           {/* Timer Bar */}
           <div className="flex items-center justify-between px-4 py-2 rounded-xl border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface">
@@ -254,7 +240,7 @@ const Practice = () => {
           </div>
 
           {/* Passage Box */}
-          <div className="rounded-xl border-2 border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface p-6 overflow-y-auto flex-1 min-h-0 scrollbar-thin scrollbar-thumb-rounded-full scrollbar-thumb-light-border dark:scrollbar-thumb-slate-600 scrollbar-track-transparent">
+          <div className="rounded-xl border-2 border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface p-6 overflow-y-auto flex-1 min-h-0 max-h-[55vh] scrollbar-thin scrollbar-thumb-rounded-full scrollbar-thumb-light-border dark:scrollbar-thumb-slate-600 scrollbar-track-transparent">
             <p className={`text-xs text-primary-500 dark:text-primary-400 mb-1 transition-opacity duration-300 pointer-events-none ${engine.currentInput.length > 0 || engine.currentWordIndex > 0 ? 'opacity-0' : 'opacity-100 animate-pulse'}`}>
               Start typing to begin the test...
             </p>
@@ -267,7 +253,7 @@ const Practice = () => {
           </div>
 
           {/* Input Box */}
-          <div className="rounded-xl border-2 border-primary-500/50 bg-light-surface dark:bg-dark-surface p-4 min-h-[80px]">
+          <div className="rounded-xl border-2 border-primary-500/50 bg-light-surface dark:bg-dark-surface px-4 py-2">
             <TypingInput
               key={engine.resetKey}
               value={engine.currentInput}
@@ -302,10 +288,11 @@ const Practice = () => {
 
       {/* FINISHED STATE */}
       {engine.testStatus === 'finished' && engine.results && (
-        <div className="max-w-2xl mx-auto px-4 pt-16">
+        <div className="max-w-2xl mx-auto px-4 pt-8">
           <ResultsCard
             results={engine.results}
             onTryAgain={() => engine.initTest({ mode, selectedTime: mode === 'exam' ? examTime : practiceTime, customPassage: customPassage.trim() || undefined })}
+            onExit={handleReset}
             selectedTime={mode === 'exam' ? examTime : practiceTime}
             mode={mode}
           />

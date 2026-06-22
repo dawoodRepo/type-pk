@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async'
 
-const BASE_URL = 'https://typepk.com'
+const BASE_URL = 'https://type-pk.com'
 
 const WEB_APP_JSON = JSON.stringify({
   '@context': 'https://schema.org',
@@ -34,7 +34,7 @@ const ORG_JSON = JSON.stringify({
   name: 'TypePK',
   url: BASE_URL,
   description: 'Free ETEA typing test practice platform for Pakistani government job seekers.',
-  contactPoint: { '@type': 'ContactPoint', email: 'hello@typepk.com', contactType: 'customer support' },
+  contactPoint: { '@type': 'ContactPoint', email: 'hello@type-pk.com', contactType: 'customer support' },
 })
 
 interface SEOProps {

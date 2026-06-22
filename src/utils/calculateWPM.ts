@@ -8,11 +8,25 @@ export const calculateResults = (
   actualTimeTakenSeconds: number
 ): TestResult => {
 
+  // Guard — nothing typed at all
+  const nothingTyped = lockedWords.length === 0 && currentWord.trim().length === 0
+
+  if (nothingTyped) {
+    return {
+      grossWPM: 0,
+      netWPM: 0,
+      accuracy: 0,
+      totalErrors: 0,
+      totalCharactersTyped: 0,
+      timeTaken: Math.round(actualTimeTakenSeconds)
+    }
+  }
+
   // Use at least 1 second to avoid division by zero
   const timeTakenSeconds = Math.max(1, actualTimeTakenSeconds)
   const timeTakenMinutes = timeTakenSeconds / 60
 
-  // Only count locked words — current unsubmitted word is ignored
+  // Count errors from locked words only
   const totalLockedErrors = lockedWords.reduce((count, word, i) => {
     if (i < passageWords.length && word !== passageWords[i]) {
       return count + 1
@@ -20,34 +34,37 @@ export const calculateResults = (
     return count
   }, 0)
 
-  // Correct locked characters only
+  // Correct locked chars — only exact matches, no partial credit
   const correctLockedChars = lockedWords.reduce((count, word, i) => {
     if (i < passageWords.length && word === passageWords[i]) {
-      // +1 for the space after the word
-      return count + word.length + 1
+      return count + word.length + 1 // +1 for space
     }
     return count
   }, 0)
 
-  // Total typed characters from locked words only (what was actually submitted)
+  // Total locked chars committed by user
   const totalLockedChars = lockedWords.reduce((count, word) => {
-    return count + word.length + 1
+    return count + word.length + 1 // +1 for space
   }, 0)
 
-  // Accuracy = correct locked chars / total locked chars typed
-  // This way early submit with 0 errors = 100%
+  // Accuracy — 0 if nothing locked (e.g. only partial word typed then submitted)
   const accuracy = totalLockedChars > 0
     ? Math.min(100, Math.round((correctLockedChars / totalLockedChars) * 100))
-    : 100
+    : 0
 
-  // WPM based on locked words only
+  // Gross WPM — raw speed based on all locked chars
   const grossWords = totalLockedChars / 5
   const grossWPM = Math.max(0, Math.round(grossWords / timeTakenMinutes))
-  const netWPM = Math.max(0, Math.round((grossWords - totalLockedErrors) / timeTakenMinutes))
 
-  // Total characters typed including current unsubmitted word for display
-  const allTypedText = [...lockedWords, currentWord].join(' ')
-  const totalCharactersTyped = allTypedText.replace(/\s+/g, '').length
+  // Net WPM — standard civil service formula
+  // Each error deducts 1 WPM per minute (keeps units consistent)
+  const errorPenalty = totalLockedErrors / timeTakenMinutes
+  const netWPM = Math.max(0, Math.round(grossWPM - errorPenalty))
+
+  // Total characters for display — locked words only, no partial current word
+  const totalCharactersTyped = lockedWords.reduce((count, word) => {
+    return count + word.length
+  }, 0)
 
   return {
     grossWPM,
