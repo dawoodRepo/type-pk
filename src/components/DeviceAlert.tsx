@@ -12,7 +12,7 @@ const DeviceAlert = () => {
   if (!isMobile || dismissed) return null
 
   return (
-    <div className="mt-16 bg-amber-50 dark:bg-amber-500/10 border-b border-amber-200 dark:border-amber-500/20 px-4 py-2.5 flex items-center justify-between gap-3">
+    <div className="fixed top-16 left-0 right-0 z-40 bg-amber-50 dark:bg-amber-500/10 border-b border-amber-200 dark:border-amber-500/20 px-4 py-2.5 flex items-center justify-between gap-3">
       <p className="text-xs text-amber-800 dark:text-amber-400 text-center flex-1">
         ⚠️ ETEA exams require a physical keyboard. Switch to a PC or laptop for proper practice.
       </p>

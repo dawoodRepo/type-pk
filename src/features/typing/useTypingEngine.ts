@@ -138,7 +138,27 @@ export const useTypingEngine = () => {
 
   const handleInput = useCallback((value: string) => {
     if (testStatus !== 'running') return
-    if (value.endsWith(' ')) return
+
+    // Handle space from mobile keyboards (they fire onChange not onKeyDown)
+    if (value.endsWith(' ')) {
+      const trimmed = value.trimEnd()
+      if (trimmed.length === 0) return
+
+      const isWrong = currentWordIndex < passageWords.length &&
+        trimmed !== passageWords[currentWordIndex]
+
+      const newLockedWords = [...lockedWords, trimmed]
+      setLockedWords(newLockedWords)
+      setCurrentInput('')
+      setCurrentWordIndex(prev => prev + 1)
+      if (isWrong) setErrors(prev => prev + 1)
+      setTypedText(newLockedWords.join(' ') + ' ')
+
+      if (newLockedWords.length >= passageWords.length) {
+        submitTestRef.current()
+      }
+      return
+    }
 
     if (value.length > 0 && !timerStarted) {
       startTimeRef.current = Date.now()

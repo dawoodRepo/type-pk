@@ -215,7 +215,7 @@ const Practice = () => {
 
       {/* RUNNING STATE */}
       {engine.testStatus === 'running' && (
-        <div className="max-w-4xl mx-auto px-4 pt-2 pb-4 flex flex-col gap-4" style={{ height: 'calc(100vh - 64px)' }}>
+        <div className="max-w-4xl mx-auto px-4 pt-2 pb-4 flex flex-col gap-4" style={{ minHeight: 'calc(100vh - 64px)' }}>
 
           {/* Timer Bar */}
           <div className="flex items-center justify-between px-4 py-2 rounded-xl border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface">
@@ -240,7 +240,7 @@ const Practice = () => {
           </div>
 
           {/* Passage Box */}
-          <div className="rounded-xl border-2 border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface p-6 overflow-y-auto flex-1 min-h-0 max-h-[55vh] scrollbar-thin scrollbar-thumb-rounded-full scrollbar-thumb-light-border dark:scrollbar-thumb-slate-600 scrollbar-track-transparent">
+          <div className="rounded-xl border-2 border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface p-6 overflow-y-auto flex-1 min-h-0 md:max-h-[55vh] scrollbar-thin scrollbar-thumb-rounded-full scrollbar-thumb-light-border dark:scrollbar-thumb-slate-600 scrollbar-track-transparent">
             <p className={`text-xs text-primary-500 dark:text-primary-400 mb-1 transition-opacity duration-300 pointer-events-none ${engine.currentInput.length > 0 || engine.currentWordIndex > 0 ? 'opacity-0' : 'opacity-100 animate-pulse'}`}>
               Start typing to begin the test...
             </p>
