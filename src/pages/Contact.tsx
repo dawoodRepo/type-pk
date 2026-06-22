@@ -1,5 +1,6 @@
 import { Mail, MessageSquare, Clock } from 'lucide-react'
 import { useState } from 'react'
+import Spinner from '../components/Spinner'
 import SEO from '../components/SEO'
 
 const Contact = () => {
@@ -10,15 +11,38 @@ const Contact = () => {
     message: ''
   })
   const [submitted, setSubmitted] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  const handleSubmit = (e: React.MouseEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Will connect to backend or Formspree later
-    setSubmitted(true)
+    setIsLoading(true)
+    setError('')
+
+    const data = new FormData()
+    data.append('access_key', import.meta.env.VITE_WEB3FORMS_KEY)
+    data.append('name', formData.name)
+    data.append('email', formData.email)
+    data.append('subject', `TypePK Contact: ${formData.subject || 'General'}`)
+    data.append('message', formData.message)
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data })
+      const json = await res.json()
+      if (json.success) {
+        setSubmitted(true)
+      } else {
+        setError('Something went wrong. Please try again.')
+      }
+    } catch {
+      setError('Network error. Please check your connection and try again.')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -108,7 +132,7 @@ const Contact = () => {
                 </button>
               </div>
             ) : (
-              <div className="rounded-2xl border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface p-6 flex flex-col gap-4">
+              <form onSubmit={handleSubmit} className="rounded-2xl border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface p-6 flex flex-col gap-4">
 
                 {/* Name + Email */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -182,16 +206,20 @@ const Contact = () => {
                   />
                 </div>
 
+                {error && (
+                  <p className="text-xs text-red-400 text-center">{error}</p>
+                )}
+
                 {/* Submit */}
                 <button
-                  onClick={handleSubmit}
-                  disabled={!formData.name || !formData.email || !formData.message}
+                  type="submit"
+                  disabled={!formData.name || !formData.email || !formData.message || isLoading}
                   className="w-full py-3 rounded-xl bg-primary-600 hover:bg-primary-700 disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold text-sm transition-all duration-200 hover:scale-[1.02]"
                 >
-                  Send Message
+                  {isLoading ? <span className="flex items-center justify-center gap-2"><Spinner inline /> Sending...</span> : 'Send Message'}
                 </button>
 
-              </div>
+              </form>
             )}
           </div>
 
