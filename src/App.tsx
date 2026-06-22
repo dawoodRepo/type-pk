@@ -3,6 +3,7 @@ import { lazy, Suspense, useEffect } from 'react'
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
 import Spinner from './components/Spinner'
+import DeviceAlert from './components/DeviceAlert'
 import Home from './pages/Home'
 import Practice from './pages/Practice'
 
@@ -24,6 +25,7 @@ function App() {
     <BrowserRouter>
       <ScrollToTop />
       <Navbar />
+      <DeviceAlert />
       <Suspense fallback={<Spinner />}>
         <Routes>
         <Route path="/" element={<Home />} />

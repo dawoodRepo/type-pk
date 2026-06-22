@@ -133,6 +133,7 @@ const Contact = () => {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="rounded-2xl border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface p-6 flex flex-col gap-4">
+                <input type="checkbox" name="botcheck" className="hidden" style={{ display: 'none' }} />
 
                 {/* Name + Email */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

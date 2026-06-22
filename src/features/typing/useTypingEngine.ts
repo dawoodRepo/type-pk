@@ -2,6 +2,7 @@ import { useState, useRef, useCallback, useEffect } from 'react'
 import type { TestStatus, TestResult } from '../../types'
 import { passages } from '../../data/passages'
 import { calculateResults } from '../../utils/calculateWPM'
+import { trackTestSubmission } from '../../utils/analytics'
 
 interface InitTestParams {
   mode: 'exam' | 'practice'
@@ -88,8 +89,10 @@ export const useTypingEngine = () => {
       ? (Date.now() - startTimeRef.current) / 1000
       : selectedTime * 60
 
-    setResults(calculateResults(lockedWords, passageWords, currentInput, selectedTime, elapsed))
+    const finalResults = calculateResults(lockedWords, passageWords, currentInput, selectedTime, elapsed)
+    setResults(finalResults)
     setTestStatus('finished')
+    trackTestSubmission(lastInitParams.current?.mode ?? 'exam', selectedTime, finalResults.netWPM, finalResults.accuracy)
   }, [lockedWords, passageWords, currentInput, selectedTime, clearTimer])
 
   submitTestRef.current = submitTest
