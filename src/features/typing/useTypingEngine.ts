@@ -184,7 +184,7 @@ export const useTypingEngine = () => {
     }
 
     setCurrentInput(value)
-  }, [testStatus, timerStarted, isUnlimited])
+  }, [testStatus, timerStarted, isUnlimited, lockedWords, currentWordIndex, passageWords])
 
   useEffect(() => {
     return () => clearTimer()
