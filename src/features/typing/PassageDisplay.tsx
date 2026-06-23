@@ -39,7 +39,7 @@ const PassageDisplay = ({
             <span
               key={wordIdx}
               ref={el => {
-                if (el) el.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
+                if (el) el.scrollIntoView({ block: 'nearest', behavior: 'instant' })
               }}
               className="text-light-text dark:text-dark-text underline underline-offset-4 decoration-2 decoration-primary-500 font-semibold"
             >
