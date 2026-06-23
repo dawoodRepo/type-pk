@@ -25,7 +25,7 @@ const TypingInput = ({ value, onChange, onKeyDown, disabled }: TypingInputProps)
   return (
     <input
       ref={inputRef}
-      type="text"
+      type="search"
       value={value}
       onChange={e => onChange(e.target.value)}
       onKeyDown={onKeyDown}
@@ -34,9 +34,8 @@ const TypingInput = ({ value, onChange, onKeyDown, disabled }: TypingInputProps)
       name="typing-input"
       autoCorrect="off"
       autoCapitalize="none"
-      autoComplete="new-password"
+      autoComplete="off"
       spellCheck={false}
-      inputMode="text"
       placeholder={disabled ? '' : 'Start typing...'}
       className="w-full bg-transparent font-mono text-lg text-light-text dark:text-dark-text outline-none placeholder:text-light-subtext/40 dark:placeholder:text-dark-subtext/40 caret-primary-500"
     />
