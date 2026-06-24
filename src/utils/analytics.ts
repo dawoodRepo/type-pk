@@ -10,17 +10,17 @@ export const trackTestSubmission = (
 
   const timer = selectedTime === 0 ? 'unlimited' : `${selectedTime} mins`
 
-  if (mode === 'exam') {
-    gtag('event', 'test_completed', {
-      event_category: 'ETEA Exam Mode',
-      event_label: `${timer} | ${wpm >= 40 ? 'Met 40+ WPM' : wpm >= 30 ? 'Met 30+ WPM' : 'Below 30 WPM'} | Accuracy: ${accuracy}%`,
-      value: wpm,
-    })
-  } else {
-    gtag('event', 'test_completed', {
-      event_category: 'Practice Mode',
-      event_label: `${timer} | WPM: ${wpm} | Accuracy: ${accuracy}%`,
-      value: wpm,
-    })
-  }
+  const speedBracket = wpm >= 40
+    ? 'Met 40+ WPM Target'
+    : wpm >= 30
+      ? 'Met 30+ WPM Target'
+      : 'Below 30 WPM'
+
+  gtag('event', 'test_completed', {
+    test_mode: mode === 'exam' ? 'Official Exam Mode' : 'Custom Practice Mode',
+    test_timer: timer,
+    test_target: speedBracket,
+    accuracy_percentage: accuracy,
+    value: wpm,
+  })
 }

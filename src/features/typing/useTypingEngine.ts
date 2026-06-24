@@ -85,15 +85,19 @@ export const useTypingEngine = () => {
 
   const submitTest = useCallback(() => {
     clearTimer()
+
+    const activeMode = lastInitParams.current?.mode ?? 'exam'
+    const activeTime = lastInitParams.current?.selectedTime ?? 5
+
     const elapsed = startTimeRef.current
       ? (Date.now() - startTimeRef.current) / 1000
-      : selectedTime * 60
+      : activeTime * 60
 
-    const finalResults = calculateResults(lockedWords, passageWords, currentInput, selectedTime, elapsed)
+    const finalResults = calculateResults(lockedWords, passageWords, currentInput, activeTime, elapsed)
     setResults(finalResults)
     setTestStatus('finished')
-    trackTestSubmission(lastInitParams.current?.mode ?? 'exam', selectedTime, finalResults.netWPM, finalResults.accuracy)
-  }, [lockedWords, passageWords, currentInput, selectedTime, clearTimer])
+    trackTestSubmission(activeMode, activeTime, finalResults.netWPM, finalResults.accuracy)
+  }, [lockedWords, passageWords, currentInput, clearTimer])
 
   submitTestRef.current = submitTest
 
