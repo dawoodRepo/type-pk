@@ -70,7 +70,10 @@ const AdUnit = ({ slot, className = '' }: AdUnitProps) => {
   const config = AD_CONFIG[slot]
 
   return (
-    <div className={`w-full flex justify-center ${className}`}>
+    <div className={`w-full flex flex-col items-center gap-1.5 ${className}`}>
+      <span className="text-[10px] uppercase tracking-wider text-light-subtext/60 dark:text-dark-subtext/60">
+        Advertisement
+      </span>
       <div
         ref={containerRef}
         style={{ width: `${config?.width}px`, height: `${config?.height}px` }}
