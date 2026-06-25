@@ -13,13 +13,20 @@
     <noscript>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
     </noscript>
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-57TE5ZHPDP"></script>
+    <!-- Google Analytics — loads after page is interactive -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-57TE5ZHPDP');
+      window.addEventListener('load', function() {
+        var s = document.createElement('script');
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-57TE5ZHPDP';
+        s.async = true;
+        document.head.appendChild(s);
+        s.onload = function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-57TE5ZHPDP');
+        };
+      });
     </script>
   </head>
   <body>
