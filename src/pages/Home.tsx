@@ -43,12 +43,6 @@ const Home = () => {
 
       {/* Hero Section */}
       <section className="max-w-6xl mx-auto px-4 pt-24 pb-20 flex flex-col items-center text-center gap-6">
-        
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary-500/30 bg-primary-500/10 text-primary-500 dark:text-primary-400 text-sm font-medium">
-          <span className="w-2 h-2 rounded-full bg-primary-500 animate-pulse" />
-          Free ETEA Typing Practice
-        </div>
 
         {/* Heading */}
         <h1 className="text-4xl md:text-6xl font-bold text-light-text dark:text-dark-text leading-tight max-w-3xl">
@@ -77,7 +71,7 @@ const Home = () => {
             to="/about"
             className="px-6 py-3 rounded-xl border border-light-border dark:border-dark-border text-light-text dark:text-dark-text font-medium hover:border-primary-500 transition-all duration-200"
           >
-            Learn More
+            About TypePK
           </Link>
         </div>
       </section>
@@ -126,6 +120,51 @@ const Home = () => {
               </p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* SEO Content Section */}
+      <section className="max-w-6xl mx-auto px-4 py-12">
+        <div className="rounded-2xl border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface p-8 flex flex-col gap-6">
+          
+          <h2 className="text-2xl font-bold text-light-text dark:text-dark-text">
+            The Most Realistic ETEA Typing Test Practice in Pakistan
+          </h2>
+
+          <p className="text-light-subtext dark:text-dark-subtext leading-relaxed">
+            Preparing for a government typing test in Khyber Pakhtunkhwa? TypePK is built specifically for candidates appearing in ETEA, PPSC, NTS, and FPSC typing examinations. Unlike generic WPM test websites that use random word lists, TypePK uses formal government-style passages — the same style you encounter on actual exam day.
+          </p>
+
+          <p className="text-light-subtext dark:text-dark-subtext leading-relaxed">
+            The ETEA typing test requires Junior Clerk candidates to achieve a minimum of 30 words per minute with 95% accuracy, and Computer Operator candidates to reach 40 WPM with the same accuracy threshold. Our practice environment enforces these exact rules — word locking after spacebar, backspace restrictions, and timed sessions of 3, 5, or 10 minutes — so the real exam feels familiar from day one.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[
+              {
+                heading: 'For Junior Clerk Preparation',
+                text: 'Practice passages designed around the 30 WPM minimum requirement. Track your net WPM and accuracy after every session.'
+              },
+              {
+                heading: 'For Computer Operator Posts',
+                text: 'Push beyond 40 WPM with longer timed sessions. Our scoring mirrors the official net WPM deduction formula.'
+              },
+              {
+                heading: 'Free Typing Test Pakistan',
+                text: 'No registration, no fees, no limits. Open the site and start practicing immediately on any device.'
+              },
+            ].map(item => (
+              <div key={item.heading} className="flex flex-col gap-2">
+                <h3 className="font-semibold text-light-text dark:text-dark-text text-sm">
+                  {item.heading}
+                </h3>
+                <p className="text-sm text-light-subtext dark:text-dark-subtext leading-relaxed">
+                  {item.text}
+                </p>
+              </div>
+            ))}
+          </div>
+
         </div>
       </section>
 

@@ -60,7 +60,7 @@ const Navbar = () => {
           ${floating ? 'h-12 px-4' : 'h-16 px-4 max-w-6xl mx-auto'}`}
         >
           {/* Logo */}
-          <Link to="/">
+          <Link to="/" aria-label="TypePK Home">
             <Logo />
           </Link>
 

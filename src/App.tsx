@@ -4,9 +4,9 @@ import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
 import Spinner from './components/Spinner'
 import DeviceAlert from './components/DeviceAlert'
-import Home from './pages/Home'
-import Practice from './pages/Practice'
 
+const Home = lazy(() => import('./pages/Home'))
+const Practice = lazy(() => import('./pages/Practice'))
 const Results = lazy(() => import('./pages/Results'))
 const About = lazy(() => import('./pages/About'))
 const Contact = lazy(() => import('./pages/Contact'))
