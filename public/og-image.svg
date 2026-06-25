@@ -1,0 +1,63 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0f172a"/>
+  
+  <!-- Subtle grid pattern -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  
+  <!-- Glow effect top left -->
+  <ellipse cx="200" cy="150" rx="300" ry="200" fill="#4f46e5" opacity="0.08"/>
+  
+  <!-- Glow effect bottom right -->
+  <ellipse cx="1000" cy="480" rx="300" ry="200" fill="#4f46e5" opacity="0.06"/>
+  
+  <!-- Official Logo -->
+  <!-- Keyboard icon -->
+  <rect x="80" y="68" width="52" height="42" rx="8" fill="rgba(255,255,255,0.07)"/>
+  <rect x="89" y="77" width="10" height="9" rx="2" fill="#818cf8" opacity="0.25"/>
+  <rect x="103" y="77" width="10" height="9" rx="2" fill="#818cf8" opacity="0.65"/>
+  <rect x="117" y="77" width="10" height="9" rx="2" fill="#818cf8"/>
+  <rect x="89" y="91" width="38" height="6" rx="2" fill="#818cf8"/>
+
+  <!-- Brand text -->
+  <text x="144" y="105" font-family="Arial, sans-serif" font-size="36" font-weight="800" fill="#f1f5f9">Type</text>
+  <text x="239" y="105" font-family="Arial, sans-serif" font-size="36" font-weight="800" fill="#818cf8">PK</text>
+
+  <!-- Main headline -->
+  <text x="80" y="260" font-family="Arial, sans-serif" font-size="64" font-weight="900" fill="white">Free ETEA Typing</text>
+  <text x="80" y="340" font-family="Arial, sans-serif" font-size="64" font-weight="900" fill="white">Test Practice</text>
+
+  <!-- Subheading -->
+  <text x="80" y="410" font-family="Arial, sans-serif" font-size="28" fill="#94a3b8">Mirrors the real exam. Same rules, same pressure.</text>
+
+  <!-- Stats row -->
+  <!-- Stat 1 -->
+  <rect x="80" y="470" width="220" height="90" rx="12" fill="#1e293b"/>
+  <rect x="80" y="470" width="220" height="90" rx="12" fill="none" stroke="#334155" stroke-width="1"/>
+  <text x="190" y="512" font-family="Arial, sans-serif" font-size="28" font-weight="800" fill="#818cf8" text-anchor="middle">30 WPM</text>
+  <text x="190" y="540" font-family="Arial, sans-serif" font-size="14" fill="#64748b" text-anchor="middle">Junior Clerk Min</text>
+
+  <!-- Stat 2 -->
+  <rect x="320" y="470" width="220" height="90" rx="12" fill="#1e293b"/>
+  <rect x="320" y="470" width="220" height="90" rx="12" fill="none" stroke="#334155" stroke-width="1"/>
+  <text x="430" y="512" font-family="Arial, sans-serif" font-size="28" font-weight="800" fill="#818cf8" text-anchor="middle">40 WPM</text>
+  <text x="430" y="540" font-family="Arial, sans-serif" font-size="14" fill="#64748b" text-anchor="middle">Computer Operator</text>
+
+  <!-- Stat 3 -->
+  <rect x="560" y="470" width="220" height="90" rx="12" fill="#1e293b"/>
+  <rect x="560" y="470" width="220" height="90" rx="12" fill="none" stroke="#334155" stroke-width="1"/>
+  <text x="670" y="512" font-family="Arial, sans-serif" font-size="28" font-weight="800" fill="#818cf8" text-anchor="middle">95%</text>
+  <text x="670" y="540" font-family="Arial, sans-serif" font-size="14" fill="#64748b" text-anchor="middle">Accuracy Required</text>
+
+  <!-- URL badge -->
+  <rect x="860" y="470" width="260" height="90" rx="12" fill="#4f46e5"/>
+  <text x="990" y="505" font-family="Arial, sans-serif" font-size="16" fill="white" text-anchor="middle" opacity="0.8">Practice free at</text>
+  <text x="990" y="535" font-family="Arial, sans-serif" font-size="22" font-weight="800" fill="white" text-anchor="middle">type-pk.com</text>
+
+</svg>

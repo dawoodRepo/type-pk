@@ -4,7 +4,7 @@ import Logo from '../logo/Logo'
 const Footer = () => {
   return (
     <footer className="border-t border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface mt-auto">
-      <div className="max-w-6xl mx-auto px-4 py-6 flex flex-col gap-5">
+      <div className="max-w-6xl mx-auto px-4 py-5 flex flex-col gap-3">
 
         {/* Top Row — Brand + Links */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
@@ -22,8 +22,8 @@ const Footer = () => {
           </p>
         </div>
 
-{/* Bottom Row — Disclaimer */}
-        <p className="text-xs text-light-subtext/80 dark:text-dark-subtext/80 text-center mt-3">
+        {/* Bottom Row — Disclaimer */}
+        <p className="text-xs text-light-subtext/80 dark:text-dark-subtext/80 text-center mt-2">
           TypePK is an independent practice platform and is not affiliated with, authorized, or endorsed by ETEA or any government department of Pakistan. For educational purposes only.
         </p>
 
