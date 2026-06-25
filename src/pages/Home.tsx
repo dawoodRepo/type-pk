@@ -71,7 +71,7 @@ const Home = () => {
             to="/about"
             className="px-6 py-3 rounded-xl border border-light-border dark:border-dark-border text-light-text dark:text-dark-text font-medium hover:border-primary-500 transition-all duration-200"
           >
-            About TypePK
+            Explore Features
           </Link>
         </div>
       </section>

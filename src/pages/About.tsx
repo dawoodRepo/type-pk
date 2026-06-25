@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Target, Shield, Zap, Heart, ChevronRight } from 'lucide-react'
+import { Target, Shield, PartyPopper, Heart, ChevronRight } from 'lucide-react'
 import SEO from '../components/SEO'
 
 const values = [
@@ -14,14 +14,14 @@ const values = [
     description: 'Just open the site and practice. No signups, no emails, no tracking.'
   },
   {
-    icon: <Zap size={20} />,
+    icon: <PartyPopper size={20} />,
     title: 'Always Free',
     description: 'Built for Pakistani job seekers. This tool will always be free to use.'
   },
   {
     icon: <Heart size={20} />,
     title: 'Built with Care',
-    description: 'Made by someone who understands the pressure of government job exams in Pakistan.'
+    description: 'Built by a former Junior Clerk test taker who knows the real exam rules and pressure.'
   },
 ]
 
