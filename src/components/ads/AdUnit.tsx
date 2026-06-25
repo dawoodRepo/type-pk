@@ -5,17 +5,15 @@ interface AdUnitProps {
   className?: string
 }
 
-// When you get Adsterra codes, paste them here and uncomment the injection in useEffect
-// const AD_CODES: Record<string, string> = {
-//   'top-banner': 'ADSTERRA_TOP_BANNER_CODE_HERE',
-//   'results': 'ADSTERRA_RESULTS_CODE_HERE',
-//   'sidebar': 'ADSTERRA_SIDEBAR_CODE_HERE',
-//   'blog-inline': 'ADSTERRA_BLOG_INLINE_CODE_HERE',
-// }
+const AD_CONFIG: Record<string, { key: string; width: number; height: number }> = {
+  'top-banner': { key: '5fb26772792f7f9ef0a07a7c44c9f8df', width: 728, height: 90 },
+  'blog-inline': { key: '5fb26772792f7f9ef0a07a7c44c9f8df', width: 728, height: 90 },
+  'results': { key: 'c8dd20a1b2cfc9a9726304fae79407ea', width: 300, height: 250 },
+}
 
 const AD_SIZES: Record<string, string> = {
   'top-banner': 'h-24 md:h-20',
-  'results': 'h-40',
+  'results': 'h-80',
   'sidebar': 'h-64',
   'blog-inline': 'h-32',
 }
@@ -23,38 +21,61 @@ const AD_SIZES: Record<string, string> = {
 const IS_PRODUCTION = import.meta.env.PROD
 
 const AdUnit = ({ slot, className = '' }: AdUnitProps) => {
-  const adRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (!IS_PRODUCTION) return
-    if (!adRef.current) return
+    if (!containerRef.current) return
+    if (containerRef.current.firstChild) return
 
-    // Inject real Adsterra script here when you have the code
-    // const script = document.createElement('script')
-    // script.innerHTML = AD_CODES[slot]
-    // adRef.current.appendChild(script)
+    const config = AD_CONFIG[slot]
+    if (!config) return
+
+    const configScript = document.createElement('script')
+    configScript.type = 'text/javascript'
+    configScript.innerHTML = `
+      atOptions = {
+        'key' : '${config.key}',
+        'format' : 'iframe',
+        'height' : ${config.height},
+        'width' : ${config.width},
+        'params' : {}
+      };
+    `
+
+    const invokeScript = document.createElement('script')
+    invokeScript.type = 'text/javascript'
+    invokeScript.src = `//www.highperformanceformat.com/${config.key}/invoke.js`
+
+    containerRef.current.appendChild(configScript)
+    containerRef.current.appendChild(invokeScript)
   }, [slot])
 
   if (!IS_PRODUCTION) {
+    const config = AD_CONFIG[slot]
     return (
       <div
-        className={`w-full ${AD_SIZES[slot]} ${className} 
-          flex items-center justify-center 
-          border border-dashed border-light-border dark:border-dark-border 
+        className={`w-full ${AD_SIZES[slot]} ${className}
+          flex items-center justify-center
+          border border-dashed border-light-border dark:border-dark-border
           rounded-xl bg-light-surface/50 dark:bg-dark-surface/50`}
       >
         <span className="text-xs text-light-subtext dark:text-dark-subtext opacity-50">
-          Ad, {slot}
+          Ad ({config?.width}x{config?.height}), {slot}
         </span>
       </div>
     )
   }
 
+  const config = AD_CONFIG[slot]
+
   return (
-    <div
-      ref={adRef}
-      className={`w-full ${AD_SIZES[slot]} ${className}`}
-    />
+    <div className={`w-full flex justify-center ${className}`}>
+      <div
+        ref={containerRef}
+        style={{ width: `${config?.width}px`, height: `${config?.height}px` }}
+      />
+    </div>
   )
 }
 
