@@ -3,6 +3,7 @@ import { lazy, Suspense, useEffect } from 'react'
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
 import Spinner from './components/Spinner'
+import NavigationProgress from './components/NavigationProgress'
 
 const Home = lazy(() => import('./pages/Home'))
 const Practice = lazy(() => import('./pages/Practice'))
@@ -23,6 +24,7 @@ function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <NavigationProgress />
       <Navbar />
       <Suspense fallback={<Spinner />}>
         <Routes>
