@@ -18,6 +18,8 @@ const AD_SIZES: Record<string, string> = {
   'blog-inline': 'h-32',
 }
 
+const ADS_ENABLED = false
+
 const IS_PRODUCTION = import.meta.env.PROD
 
 const AdUnit = ({ slot, className = '' }: AdUnitProps) => {
@@ -50,6 +52,8 @@ const AdUnit = ({ slot, className = '' }: AdUnitProps) => {
     containerRef.current.appendChild(configScript)
     containerRef.current.appendChild(invokeScript)
   }, [slot])
+
+  if (!ADS_ENABLED) return null
 
   if (!IS_PRODUCTION) {
     const config = AD_CONFIG[slot]
