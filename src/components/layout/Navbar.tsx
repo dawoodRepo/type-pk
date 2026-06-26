@@ -57,7 +57,7 @@ const Navbar = () => {
           }`}
       >
         <div className={`flex items-center justify-between transition-all duration-500
-          ${floating ? 'h-12 px-4' : 'h-16 px-4 max-w-6xl mx-auto'}`}
+          ${floating ? 'h-12 px-4' : 'h-16 px-4'}`}
         >
           {/* Logo */}
           <Link to="/" aria-label="TypePK Home">
