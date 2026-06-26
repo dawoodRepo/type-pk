@@ -76,7 +76,7 @@ const Contact = () => {
                 icon: <Mail size={18} />,
                 title: 'Email',
                 value: 'hello@type-pk.com',
-                sub: 'We reply within 24 hours'
+                sub: "We'll get back to you soon"
               },
               {
                 icon: <MessageSquare size={18} />,
@@ -87,7 +87,7 @@ const Contact = () => {
               {
                 icon: <Clock size={18} />,
                 title: 'Response Time',
-                value: 'Within 24 hours',
+                value: 'As soon as possible',
                 sub: 'Monday to Saturday'
               },
             ].map(item => (
@@ -122,7 +122,7 @@ const Contact = () => {
                   Message sent!
                 </h3>
                 <p className="text-sm text-light-subtext dark:text-dark-subtext">
-                  Thanks for reaching out. We'll get back to you within 24 hours.
+                  Thanks for reaching out. We'll get back to you.
                 </p>
                 <button
                   onClick={() => { setSubmitted(false); setFormData({ name: '', email: '', subject: '', message: '' }) }}

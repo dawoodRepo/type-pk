@@ -1,5 +1,6 @@
 import type { TestResult } from '../../types'
 import { RotateCcw, TrendingUp, ArrowLeft } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import AdUnit from '../../components/ads/AdUnit'
 
 interface ResultsCardProps {
@@ -98,7 +99,7 @@ const ResultsCard = ({ results, onTryAgain, onExit, selectedTime, mode }: Result
   const eligibility = getEligibilityStatus(results.netWPM, results.accuracy)
 
   return (
-    <div className="flex flex-col gap-5 pb-20">
+    <div className="flex flex-col pb-20">
 
       {/* Header */}
       <div className="flex flex-col gap-2">
@@ -109,37 +110,48 @@ const ResultsCard = ({ results, onTryAgain, onExit, selectedTime, mode }: Result
               {selectedTime === 0 ? 'Unlimited' : `${selectedTime} min`} · {results.totalCharactersTyped} characters
             </p>
           </div>
-          <div className="flex items-center gap-2 shrink-0">
-            <button
-              onClick={onExit}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-light-border dark:border-dark-border text-xs text-light-subtext dark:text-dark-subtext hover:text-light-text dark:hover:text-dark-text hover:border-primary-500 transition-all duration-200 group"
-            >
-              <ArrowLeft size={13} className="group-hover:-translate-x-0.5 transition-transform duration-200" />
-              Exit
-            </button>
-            <button
-              onClick={onTryAgain}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-light-border dark:border-dark-border text-xs text-light-subtext dark:text-dark-subtext hover:border-primary-500 hover:text-primary-500 transition-all duration-200 group"
-            >
-              <RotateCcw size={13} className="group-hover:rotate-180 transition-transform duration-500" />
-              Try Again
-            </button>
+          <div className="flex flex-col items-end gap-2 shrink-0">
+            <div className="flex items-center gap-2">
+              <button
+                onClick={onExit}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-light-border dark:border-dark-border text-xs text-light-subtext dark:text-dark-subtext hover:text-light-text dark:hover:text-dark-text hover:border-primary-500 transition-all duration-200 group"
+              >
+                <ArrowLeft size={13} className="group-hover:-translate-x-0.5 transition-transform duration-200" />
+                Exit
+              </button>
+              <button
+                onClick={onTryAgain}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-light-border dark:border-dark-border text-xs text-light-subtext dark:text-dark-subtext hover:border-primary-500 hover:text-primary-500 transition-all duration-200 group"
+              >
+                <RotateCcw size={13} className="group-hover:rotate-180 transition-transform duration-500" />
+                Try Again
+              </button>
+            </div>
+
           </div>
         </div>
       </div>
 
       {/* Personalized headline */}
-      <div className="rounded-2xl border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface p-6 flex flex-col gap-2">
-        <h2 className="text-xl font-bold text-light-text dark:text-dark-text">
-          {wpmMessage.headline}
-        </h2>
-        <p className="text-sm text-light-subtext dark:text-dark-subtext leading-relaxed">
-          {wpmMessage.tip}
-        </p>
+      <div>
+        <Link
+          to="/contact"
+          className="text-xs mb-2 flex justify-end text-light-subtext/50 dark:text-dark-subtext/50 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200"
+        >
+          Found a bug? Let us know
+        </Link>
+        <div className="rounded-2xl border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface p-6 flex flex-col gap-2">
+          <h2 className="text-xl font-bold text-light-text dark:text-dark-text">
+            {wpmMessage.headline}
+          </h2>
+          <p className="text-sm text-light-subtext dark:text-dark-subtext leading-relaxed">
+            {wpmMessage.tip}
+          </p>
+        </div>
       </div>
 
       {/* Main Stats */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-4 mt-5">
         <div className="rounded-2xl border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface p-6 text-center flex flex-col gap-1">
           <p className="text-xs font-medium text-light-subtext dark:text-dark-subtext uppercase tracking-wider">
             Net WPM
@@ -153,10 +165,9 @@ const ResultsCard = ({ results, onTryAgain, onExit, selectedTime, mode }: Result
           <p className="text-xs font-medium text-light-subtext dark:text-dark-subtext uppercase tracking-wider">
             Accuracy
           </p>
-          <p className={`text-5xl font-bold tabular-nums ${
-            results.accuracy >= 95 ? 'text-green-400' :
-            results.accuracy >= 90 ? 'text-yellow-400' : 'text-red-400'
-          }`}>
+          <p className={`text-5xl font-bold tabular-nums ${results.accuracy >= 95 ? 'text-green-400' :
+              results.accuracy >= 90 ? 'text-yellow-400' : 'text-red-400'
+            }`}>
             {results.accuracy}%
           </p>
           <p className={`text-xs font-medium ${accuracyMessage.color}`}>
@@ -166,7 +177,7 @@ const ResultsCard = ({ results, onTryAgain, onExit, selectedTime, mode }: Result
       </div>
 
       {/* Secondary Stats */}
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-3 gap-3 mt-5">
         {[
           { label: 'Gross WPM', value: results.grossWPM },
           { label: 'Errors', value: results.totalErrors },
@@ -181,7 +192,7 @@ const ResultsCard = ({ results, onTryAgain, onExit, selectedTime, mode }: Result
 
       {/* Eligibility, exam mode only */}
       {mode === 'exam' && (
-        <div className={`rounded-xl border p-4 flex items-center gap-3 ${eligibility.bg}`}>
+        <div className={`rounded-xl border p-4 flex items-center gap-3 mt-5 ${eligibility.bg}`}>
           <TrendingUp size={16} className={eligibility.color} />
           <p className={`text-sm font-medium ${eligibility.color}`}>
             {eligibility.text}
@@ -189,7 +200,7 @@ const ResultsCard = ({ results, onTryAgain, onExit, selectedTime, mode }: Result
         </div>
       )}
 
-      <AdUnit slot="results" />
+      <AdUnit slot="results" className="mt-5" />
 
     </div>
   )
