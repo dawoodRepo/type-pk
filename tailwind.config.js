@@ -34,11 +34,22 @@ export default {
           error:   '#ef4444',
           cursor:  '#6366f1',
           untyped: '#94a3b8',
+        },
+        win98: {
+          gray:        '#d4d0c8',
+          navy:        '#003366',
+          dark:        '#001530',
+          deep:        '#002147',
+          border:      '#808080',
+          highlight:   '#004080',
+          text:        '#333333',
+          placeholder: '#888888',
         }
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
+        serif: ['Georgia', 'Cambria', 'Times New Roman', 'serif'],
       }
     },
   },
