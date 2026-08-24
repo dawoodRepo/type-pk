@@ -145,7 +145,7 @@ export const useTypingEngine = () => {
 
     // Handle space from mobile keyboards (they fire onChange not onKeyDown)
     if (value.endsWith(' ')) {
-      // On mobile, value may contain full history — only take the last word
+      // On mobile, value may contain full history, only take the last word
       const trimmed = value.trimEnd().split(/\s+/).pop() ?? ''
       if (trimmed.length === 0) return
 

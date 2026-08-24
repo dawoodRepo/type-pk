@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="border-t border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface mt-auto">
       <div className="max-w-6xl mx-auto px-4 py-5 flex flex-col gap-3">
 
-        {/* Top Row — Brand + Links */}
+        {/* Top Row, Brand + Links */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <Link to="/" aria-label="TypePK Home">
             <Logo className="text-base" />
@@ -22,7 +22,7 @@ const Footer = () => {
           </p>
         </div>
 
-        {/* Bottom Row — Disclaimer */}
+        {/* Bottom Row, Disclaimer */}
         <p className="text-xs text-light-subtext/80 dark:text-dark-subtext/80 text-center mt-2">
           TypePK is an independent practice platform and is not affiliated with, authorized, or endorsed by ETEA or any government department of Pakistan. For educational purposes only.
         </p>

@@ -78,7 +78,7 @@ const SEO = ({ title, description, canonical, type = 'website', articleDate }: S
       <meta property="og:image" content={`${BASE_URL}/og-image.png`} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
-      <meta property="og:image:alt" content="TypePK — Free ETEA Typing Test Practice" />
+      <meta property="og:image:alt" content="TypePK, Free ETEA Typing Test Practice" />
 
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />

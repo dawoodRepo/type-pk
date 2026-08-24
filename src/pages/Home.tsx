@@ -132,11 +132,11 @@ const Home = () => {
           </h2>
 
           <p className="text-light-subtext dark:text-dark-subtext leading-relaxed">
-            Preparing for a government typing test in Khyber Pakhtunkhwa? TypePK is built specifically for candidates appearing in ETEA, PPSC, NTS, and FPSC typing examinations. Unlike generic WPM test websites that use random word lists, TypePK uses formal government-style passages — the same style you encounter on actual exam day.
+            Preparing for a government typing test in Khyber Pakhtunkhwa? TypePK is built specifically for candidates appearing in ETEA, PPSC, NTS, and FPSC typing examinations. Unlike generic WPM test websites that use random word lists, TypePK uses formal government-style passages, the same style you encounter on actual exam day.
           </p>
 
           <p className="text-light-subtext dark:text-dark-subtext leading-relaxed">
-            The ETEA typing test requires Junior Clerk candidates to achieve a minimum of 30 words per minute with 95% accuracy, and Computer Operator candidates to reach 40 WPM with the same accuracy threshold. Our practice environment enforces these exact rules — word locking after spacebar, backspace restrictions, and timed sessions of 3, 5, or 10 minutes — so the real exam feels familiar from day one.
+            The ETEA typing test requires Junior Clerk candidates to achieve a minimum of 30 words per minute with 95% accuracy, and Computer Operator candidates to reach 40 WPM with the same accuracy threshold. Our practice environment enforces these exact rules, word locking after spacebar, backspace restrictions, and timed sessions of 3, 5, or 10 minutes, so the real exam feels familiar from day one.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

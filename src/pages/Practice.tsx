@@ -205,6 +205,13 @@ const Practice = () => {
 
           <AdUnit slot="top-banner" />
 
+          {/* SEO content for Google */}
+          <div className="text-center flex flex-col gap-2 pt-4 border-t border-light-border dark:border-dark-border">
+            <p className="text-xs text-light-subtext dark:text-dark-subtext leading-relaxed">
+              TypePK provides free ETEA typing test practice for Junior Clerk, Computer Operator, and other government job candidates in Khyber Pakhtunkhwa, Pakistan. Choose Exam Mode to simulate the real ETEA environment with word locking and official passages, or Practice Mode for flexible sessions with custom text.
+            </p>
+          </div>
+
         </div>
       </main>
     )

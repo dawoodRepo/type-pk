@@ -9,7 +9,7 @@ const posts = [
     excerpt: 'Most people think WPM is just how fast you type. In ETEA exams, it works differently. Here is the exact formula and how errors affect your final score.',
     category: 'Exam Guide',
     readTime: '4 min read',
-    date: 'June 2026',
+    date: 'August 2026',
   },
   {
     slug: 'etea-typing-test-rules',
@@ -17,7 +17,7 @@ const posts = [
     excerpt: 'Backspace restrictions, word locking, case sensitivity, the ETEA typing environment has rules that most candidates discover too late. Know them before you sit down.',
     category: 'Exam Guide',
     readTime: '5 min read',
-    date: 'June 2026',
+    date: 'August 2026',
   },
   {
     slug: 'how-to-improve-typing-speed',
@@ -25,7 +25,7 @@ const posts = [
     excerpt: 'Generic typing advice does not work for ETEA. Here is a focused practice strategy built around the actual exam format, passage style, and scoring system.',
     category: 'Tips',
     readTime: '6 min read',
-    date: 'June 2026',
+    date: 'August 2026',
   },
   {
     slug: 'junior-clerk-typing-test-guide',
@@ -33,7 +33,7 @@ const posts = [
     excerpt: 'Everything you need to know about the Junior Clerk typing requirement: minimum WPM, accuracy threshold, exam format, and how to practice effectively.',
     category: 'Job Guide',
     readTime: '7 min read',
-    date: 'June 2026',
+    date: 'August 2026',
   },
   {
     slug: 'etea-vs-monkeytype',
@@ -41,7 +41,7 @@ const posts = [
     excerpt: 'Scoring 60 WPM on Monkeytype but struggling in the actual exam? Here is why the two environments are completely different and how to bridge the gap.',
     category: 'Tips',
     readTime: '4 min read',
-    date: 'June 2026',
+    date: 'August 2026',
   },
   {
     slug: 'computer-operator-typing-requirements',
@@ -49,7 +49,31 @@ const posts = [
     excerpt: 'The Computer Operator post requires 40 WPM with 95% accuracy. Here is what that looks like in practice and a realistic timeline to get there.',
     category: 'Job Guide',
     readTime: '5 min read',
-    date: 'June 2026',
+    date: 'August 2026',
+  },
+  {
+    slug: 'computer-operator-typing-requirements',
+    title: 'Computer Operator Typing Test, What 40 WPM Actually Feels Like',
+    excerpt: 'The Computer Operator post requires 40 WPM with 95% accuracy. Here is what that looks like in practice and a realistic timeline to get there.',
+    category: 'Job Guide',
+    readTime: '5 min read',
+    date: 'August 2026',
+  },
+  {
+    slug: 'etea-typing-test-paragraph-practice',
+    title: 'ETEA Typing Test Paragraph Practice, What to Expect',
+    excerpt: 'The paragraph you type in the ETEA exam is nothing like random word practice. Here is exactly what the passage looks like, why it is harder, and how to prepare for it specifically.',
+    category: 'Exam Guide',
+    readTime: '5 min read',
+    date: 'August 2026',
+  },
+  {
+    slug: 'how-to-type-40-wpm-in-30-days',
+    title: 'How to Type 40 WPM in 30 Days, A Practical Plan',
+    excerpt: 'Going from beginner to 40 WPM in 30 days is achievable with the right structure. This is a day-by-day plan built specifically around ETEA exam requirements.',
+    category: 'Tips',
+    readTime: '7 min read',
+    date: 'August 2026',
   },
 ]
 

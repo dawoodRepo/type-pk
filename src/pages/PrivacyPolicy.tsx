@@ -92,7 +92,7 @@ const PrivacyPolicy = () => {
             Privacy Policy & Terms
           </h1>
           <p className="text-light-subtext dark:text-dark-subtext text-sm">
-            Last updated: June 2026
+            Last updated: August 2026
           </p>
           <p className="text-light-subtext dark:text-dark-subtext leading-relaxed">
             TypePK is committed to protecting your privacy. This policy explains what information we collect, how we use it, and what rights you have. The short version: we collect almost nothing, and what little we do collect is never sold or shared.
