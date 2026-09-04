@@ -18,7 +18,7 @@ const AD_SIZES: Record<string, string> = {
   'blog-inline': 'h-32',
 }
 
-const ADS_ENABLED = false
+const ADS_ENABLED = true
 
 const IS_PRODUCTION = import.meta.env.PROD
 

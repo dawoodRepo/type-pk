@@ -3,37 +3,39 @@ interface PassageDisplayProps {
   currentWordIndex: number
   lockedWords: string[]
   currentInput: string
+  themeIgnored?: boolean
 }
 
 const PassageDisplay = ({
   passageWords,
   currentWordIndex,
   lockedWords,
-  currentInput: _currentInput
+  currentInput: _currentInput,
+  themeIgnored = false
 }: PassageDisplayProps) => {
+  const lockedCorrect = themeIgnored ? 'text-green-500' : 'text-green-500 dark:text-green-400'
+  const lockedWrong = themeIgnored
+    ? 'text-red-500 line-through decoration-red-500'
+    : 'text-red-500 dark:text-red-400 line-through decoration-red-500 dark:decoration-red-400'
+  const current = themeIgnored
+    ? 'bg-yellow-300 rounded-sm'
+    : 'bg-yellow-300 dark:bg-transparent ring-0 dark:ring-2 ring-primary-500 dark:ring-primary-400 rounded-sm'
+  const upcoming = themeIgnored ? '' : 'text-light-subtext dark:text-dark-subtext'
+
   return (
-    <div className="font-mono text-base md:text-lg leading-8 md:leading-10 flex flex-wrap gap-x-2 md:gap-x-3 gap-y-1.5 md:gap-y-2 select-none">
+    <div className={`${themeIgnored ? 'font-serif' : 'font-mono'} text-lg md:text-[20px] leading-8 md:leading-[38px] flex flex-wrap gap-x-2 md:gap-x-3 gap-y-1.5 select-none font-normal tracking-wide antialiased`}>
       {passageWords.map((word, wordIdx) => {
 
-        // Locked word, show as green or red based on correctness
         if (wordIdx < currentWordIndex) {
           const typedWord = lockedWords[wordIdx] || ''
           const wasCorrect = typedWord === word
           return (
-            <span
-              key={wordIdx}
-              className={`transition-colors duration-150 ${
-                wasCorrect
-                  ? 'text-green-400'
-                  : 'text-red-400 line-through decoration-red-400'
-              }`}
-            >
+            <span key={wordIdx} className={wasCorrect ? lockedCorrect : lockedWrong}>
               {word}
             </span>
           )
         }
 
-        // Current word, highlight with underline, no character coloring
         if (wordIdx === currentWordIndex) {
           return (
             <span
@@ -41,16 +43,15 @@ const PassageDisplay = ({
               ref={el => {
                 if (el) el.scrollIntoView({ block: 'nearest', behavior: 'instant' })
               }}
-              className="text-light-text dark:text-dark-text underline underline-offset-4 decoration-2 decoration-primary-500 font-semibold"
+              className={current}
             >
               {word}
             </span>
           )
         }
 
-        // Upcoming words, plain gray
         return (
-          <span key={wordIdx} className="text-light-subtext dark:text-dark-subtext">
+          <span key={wordIdx} className={upcoming}>
             {word}
           </span>
         )

@@ -5,9 +5,10 @@ interface TypingInputProps {
   onChange: (val: string) => void
   onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void
   disabled: boolean
+  placeholderClassName?: string
 }
 
-const TypingInput = ({ value, onChange, onKeyDown, disabled }: TypingInputProps) => {
+const TypingInput = ({ value, onChange, onKeyDown, disabled, placeholderClassName }: TypingInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -37,7 +38,7 @@ const TypingInput = ({ value, onChange, onKeyDown, disabled }: TypingInputProps)
       autoComplete="off"
       spellCheck={false}
       placeholder={disabled ? '' : 'Start typing...'}
-      className="w-full bg-transparent font-mono text-lg text-light-text dark:text-dark-text outline-none placeholder:text-light-subtext/40 dark:placeholder:text-dark-subtext/40 caret-primary-500"
+      className={`w-full bg-transparent font-mono text-lg outline-none placeholder:text-light-subtext/40 dark:placeholder:text-dark-subtext/40 caret-primary-500 ${placeholderClassName ?? ''}`}
     />
   )
 }

@@ -11,4 +11,30 @@
     background: linear-gradient(135deg, #f1f5f9 0%, #e8edf5 100%);
     min-height: 100vh;
   }
+
+  body.exam-lock {
+    overflow: hidden;
+  }
+}
+
+@keyframes dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes dropdown-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
 }

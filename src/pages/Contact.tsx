@@ -2,6 +2,7 @@ import { Mail, MessageSquare, Clock } from 'lucide-react'
 import { useState } from 'react'
 import Spinner from '../components/Spinner'
 import SEO from '../components/SEO'
+import { Dropdown } from '../components/ui/Dropdown'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -174,20 +175,17 @@ const Contact = () => {
                   <label htmlFor="subject" className="text-xs font-medium text-light-subtext dark:text-dark-subtext uppercase tracking-wider">
                     Subject
                   </label>
-                  <select
-                    id="subject"
-                    name="subject"
+                  <Dropdown
                     value={formData.subject}
-                    onChange={handleChange}
-                    autoComplete="off"
-                    className="px-4 py-2.5 rounded-lg border border-light-border dark:border-dark-border bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text text-sm outline-none focus:border-primary-500 transition-colors duration-200"
-                  >
-                    <option value="">Select a subject</option>
-                    <option value="bug">Bug Report</option>
-                    <option value="suggestion">Suggestion</option>
-                    <option value="passage">Passage Error</option>
-                    <option value="other">Other</option>
-                  </select>
+                    onChange={val => setFormData(prev => ({ ...prev, subject: val }))}
+                    placeholder="Select a subject"
+                    options={[
+                      { value: 'bug', label: 'Bug Report' },
+                      { value: 'suggestion', label: 'Suggestion' },
+                      { value: 'passage', label: 'Passage Error' },
+                      { value: 'other', label: 'Other' },
+                    ]}
+                  />
                 </div>
 
                 {/* Message */}

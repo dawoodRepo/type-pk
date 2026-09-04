@@ -1,19 +1,18 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
 import type { TestStatus, TestResult } from '../../types'
-import { passages } from '../../data/passages'
+import { getRandomPassage, type Difficulty } from '../../data/passages'
 import { calculateResults } from '../../utils/calculateWPM'
 import { trackTestSubmission } from '../../utils/analytics'
 
 interface InitTestParams {
   mode: 'exam' | 'practice'
   selectedTime: number
+  difficulty?: Difficulty
   customPassage?: string
 }
 
-const getRandomPassageWords = (passages: typeof import('../../data/passages').passages) => {
-  const randomIndex = Math.floor(Math.random() * passages.length)
-  return passages[randomIndex].content.trim().split(/\s+/).filter(Boolean)
-}
+// Exam mode always uses hard difficulty
+const getExamDifficulty = (): Difficulty => 'hard'
 
 export const useTypingEngine = () => {
   const [testStatus, setTestStatus] = useState<TestStatus>('idle')
@@ -46,7 +45,7 @@ export const useTypingEngine = () => {
   }, [])
 
   useEffect(() => {
-    const words = getRandomPassageWords(passages)
+    const words = getRandomPassage('medium')
     setPassage(words.join(' '))
     setPassageWords(words)
   }, [])
@@ -76,9 +75,11 @@ export const useTypingEngine = () => {
     clearTimer()
     lastInitParams.current = params
 
+    const difficulty = params.mode === 'exam' ? getExamDifficulty() : (params.difficulty ?? 'medium')
+
     const words = params.mode === 'practice' && params.customPassage?.trim()
       ? params.customPassage.trim().split(/\s+/).filter(Boolean)
-      : getRandomPassageWords(passages)
+      : getRandomPassage(difficulty)
 
     applyTestState(params, words)
   }, [clearTimer, applyTestState])
@@ -106,13 +107,15 @@ export const useTypingEngine = () => {
     const params = lastInitParams.current
     if (!params) { setTestStatus('idle'); return }
 
-    const freshParams: InitTestParams = { mode: params.mode, selectedTime: params.selectedTime }
+    const freshParams: InitTestParams = { mode: params.mode, selectedTime: params.selectedTime, difficulty: params.difficulty }
     lastInitParams.current = freshParams
-    applyTestState(freshParams, getRandomPassageWords(passages))
+
+    const difficulty = params.mode === 'exam' ? getExamDifficulty() : (params.difficulty ?? 'medium')
+    applyTestState(freshParams, getRandomPassage(difficulty))
   }, [clearTimer, applyTestState])
 
   const startTest = useCallback(() => {
-    initTest({ mode: 'exam', selectedTime })
+    initTest({ mode: 'exam', selectedTime, difficulty: 'hard' })
   }, [selectedTime, initTest])
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
