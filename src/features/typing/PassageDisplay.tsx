@@ -23,7 +23,7 @@ const PassageDisplay = ({
   const upcoming = themeIgnored ? '' : 'text-light-subtext dark:text-dark-subtext'
 
   return (
-    <div className={`${themeIgnored ? 'font-serif' : 'font-mono'} text-lg md:text-[20px] leading-8 md:leading-[38px] flex flex-wrap gap-x-2 md:gap-x-3 gap-y-1.5 select-none font-normal tracking-wide antialiased`}>
+    <div className={`${themeIgnored ? 'font-serif text-lg md:text-[20px] leading-8 md:leading-[38px]' : 'font-mono text-xl md:text-[22px] leading-9 md:leading-[42px]'} flex flex-wrap gap-x-2 md:gap-x-3 gap-y-1.5 select-none font-normal tracking-wide antialiased`}>
       {passageWords.map((word, wordIdx) => {
 
         if (wordIdx < currentWordIndex) {
