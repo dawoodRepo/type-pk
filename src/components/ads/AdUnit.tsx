@@ -5,11 +5,11 @@ interface AdUnitProps {
   className?: string
 }
 
-const AD_CONFIG: Record<string, { key: string; width: number; height: number }> = {
-  'top-banner': { key: '5fb26772792f7f9ef0a07a7c44c9f8df', width: 728, height: 90 },
-  'blog-inline': { key: '5fb26772792f7f9ef0a07a7c44c9f8df', width: 728, height: 90 },
-  'results': { key: 'c8dd20a1b2cfc9a9726304fae79407ea', width: 300, height: 250 },
-  'vertical-sidebar': { key: '996c82540f6153263d2cbe58fbd02696', width: 160, height: 600 },
+const AD_CONFIG: Record<string, { key: string; width: number; height: number; domain: string }> = {
+  'top-banner': { key: '5fb26772792f7f9ef0a07a7c44c9f8df', width: 728, height: 90, domain: 'highperformanceformat.com' },
+  'blog-inline': { key: '5fb26772792f7f9ef0a07a7c44c9f8df', width: 728, height: 90, domain: 'highperformanceformat.com' },
+  'results': { key: 'c8dd20a1b2cfc9a9726304fae79407ea', width: 300, height: 250, domain: 'highperformanceformat.com' },
+  'vertical-sidebar': { key: '996c82540f6153263d2cbe58fbd02696', width: 160, height: 600, domain: 'highrevenueformat.com' },
 }
 
 const AD_SIZES: Record<string, string> = {
@@ -49,7 +49,7 @@ const AdUnit = ({ slot, className = '' }: AdUnitProps) => {
 
     const invokeScript = document.createElement('script')
     invokeScript.type = 'text/javascript'
-    invokeScript.src = `//www.highrevenueformat.com/${config.key}/invoke.js`
+    invokeScript.src = `//www.${config.domain}/${config.key}/invoke.js`
 
     containerRef.current.appendChild(configScript)
     containerRef.current.appendChild(invokeScript)
