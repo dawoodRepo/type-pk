@@ -102,103 +102,110 @@ const ResultsCard = ({ results, onTryAgain, onExit, selectedTime, mode }: Result
     <div className="flex flex-col pb-20">
 
       {/* Header */}
-      <div className="flex flex-col gap-2">
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <h2 className="text-2xl font-bold text-light-text dark:text-dark-text">Test Complete</h2>
-            <p className="text-sm text-light-subtext dark:text-dark-subtext mt-0.5">
-              {selectedTime === 0 ? 'Unlimited' : `${selectedTime} min`} · {results.totalCharactersTyped} characters
-            </p>
-          </div>
-          <div className="flex flex-col items-end gap-2 shrink-0">
-            <div className="flex items-center gap-2">
-              <button
-                onClick={onExit}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-light-border dark:border-dark-border text-xs text-light-subtext dark:text-dark-subtext hover:text-light-text dark:hover:text-dark-text hover:border-primary-500 transition-all duration-200 group"
-              >
-                <ArrowLeft size={13} className="group-hover:-translate-x-0.5 transition-transform duration-200" />
-                Exit
-              </button>
-              <button
-                onClick={onTryAgain}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-light-border dark:border-dark-border text-xs text-light-subtext dark:text-dark-subtext hover:border-primary-500 hover:text-primary-500 transition-all duration-200 group"
-              >
-                <RotateCcw size={13} className="group-hover:rotate-180 transition-transform duration-500" />
-                Try Again
-              </button>
-            </div>
-
-          </div>
+      <div className="flex items-center justify-between gap-3 mb-2">
+        <div>
+          <h2 className="text-xl font-bold text-light-text dark:text-dark-text">Test Complete</h2>
+          <p className="text-xs text-light-subtext dark:text-dark-subtext">
+            {selectedTime === 0 ? 'Unlimited' : `${selectedTime} min`} · {results.totalCharactersTyped} characters
+          </p>
+        </div>
+        <div className="flex items-center gap-2 shrink-0">
+          <button
+            onClick={onExit}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-light-border dark:border-dark-border text-xs text-light-subtext dark:text-dark-subtext hover:text-light-text dark:hover:text-dark-text hover:border-primary-500 transition-all duration-200 group"
+          >
+            <ArrowLeft size={12} className="group-hover:-translate-x-0.5 transition-transform duration-200" />
+            Exit
+          </button>
+          <button
+            onClick={onTryAgain}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-light-border dark:border-dark-border text-xs text-light-subtext dark:text-dark-subtext hover:border-primary-500 hover:text-primary-500 transition-all duration-200 group"
+          >
+            <RotateCcw size={12} className="group-hover:rotate-180 transition-transform duration-500" />
+            Try Again
+          </button>
         </div>
       </div>
 
-      {/* Personalized headline */}
-      <div>
-        <Link
-          to="/contact"
-          className="text-xs mb-2 flex justify-end text-light-subtext/50 dark:text-dark-subtext/50 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200"
-        >
-          Found a bug? Let us know
-        </Link>
-        <div className="rounded-2xl border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface p-6 flex flex-col gap-2">
-          <h2 className="text-xl font-bold text-light-text dark:text-dark-text">
+      {/* Found a bug link */}
+      <Link
+        to="/contact"
+        className="text-xs mb-2 flex justify-end text-light-subtext/50 dark:text-dark-subtext/50 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200"
+      >
+        Found a bug? Let us know
+      </Link>
+
+      {/* Merged Card */}
+      <div className="rounded-2xl border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface overflow-hidden">
+
+        {/* Headline + Tip */}
+        <div className="p-5 pb-4">
+          <h2 className="text-lg font-bold text-light-text dark:text-dark-text">
             {wpmMessage.headline}
           </h2>
-          <p className="text-sm text-light-subtext dark:text-dark-subtext leading-relaxed">
+          <p className="text-xs text-light-subtext dark:text-dark-subtext leading-relaxed mt-1">
             {wpmMessage.tip}
           </p>
         </div>
-      </div>
 
-      {/* Main Stats */}
-      <div className="grid grid-cols-2 gap-4 mt-5">
-        <div className="rounded-2xl border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface p-6 text-center flex flex-col gap-1">
-          <p className="text-xs font-medium text-light-subtext dark:text-dark-subtext uppercase tracking-wider">
-            Net WPM
-          </p>
-          <p className="text-5xl font-bold text-primary-500 dark:text-primary-400 tabular-nums">
-            {results.netWPM}
-          </p>
-          <p className="text-xs text-light-subtext dark:text-dark-subtext">official score</p>
-        </div>
-        <div className="rounded-2xl border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface p-6 text-center flex flex-col gap-1">
-          <p className="text-xs font-medium text-light-subtext dark:text-dark-subtext uppercase tracking-wider">
-            Accuracy
-          </p>
-          <p className={`text-5xl font-bold tabular-nums ${results.accuracy >= 95 ? 'text-green-400' :
-              results.accuracy >= 90 ? 'text-yellow-400' : 'text-red-400'
-            }`}>
-            {results.accuracy}%
-          </p>
-          <p className={`text-xs font-medium ${accuracyMessage.color}`}>
-            {accuracyMessage.text}
-          </p>
-        </div>
-      </div>
-
-      {/* Secondary Stats */}
-      <div className="grid grid-cols-3 gap-3 mt-5">
-        {[
-          { label: 'Gross WPM', value: results.grossWPM },
-          { label: 'Errors', value: results.totalErrors },
-          { label: 'Characters', value: results.totalCharactersTyped },
-        ].map(stat => (
-          <div key={stat.label} className="rounded-xl border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface p-4 text-center">
-            <p className="text-xl font-bold text-light-text dark:text-dark-text tabular-nums">{stat.value}</p>
-            <p className="text-xs text-light-subtext dark:text-dark-subtext mt-1">{stat.label}</p>
+        {/* Main Stats */}
+        <div className="border-t border-light-border dark:border-dark-border px-5 py-4">
+          <div className="grid grid-cols-2 gap-3">
+            <div className="rounded-xl bg-primary-500/5 dark:bg-primary-500/10 p-4 text-center">
+              <p className="text-[10px] font-medium text-light-subtext dark:text-dark-subtext uppercase tracking-wider">
+                Net WPM
+              </p>
+              <p className="text-4xl font-bold text-primary-500 dark:text-primary-400 tabular-nums">
+                {results.netWPM}
+              </p>
+              <p className="text-[10px] text-light-subtext dark:text-dark-subtext">official score</p>
+            </div>
+            <div className="rounded-xl bg-primary-500/5 dark:bg-primary-500/10 p-4 text-center">
+              <p className="text-[10px] font-medium text-light-subtext dark:text-dark-subtext uppercase tracking-wider">
+                Accuracy
+              </p>
+              <p className={`text-4xl font-bold tabular-nums ${results.accuracy >= 95 ? 'text-green-400' :
+                  results.accuracy >= 90 ? 'text-yellow-400' : 'text-red-400'
+                }`}>
+                {results.accuracy}%
+              </p>
+              <p className={`text-[10px] font-medium ${accuracyMessage.color}`}>
+                {accuracyMessage.text}
+              </p>
+            </div>
           </div>
-        ))}
-      </div>
-
-      {/* Eligibility, exam mode only */}
-      {mode === 'exam' && (
-        <div className={`rounded-xl border p-4 flex items-center gap-3 mt-5 ${eligibility.bg}`}>
-          <TrendingUp size={16} className={eligibility.color} />
-          <p className={`text-sm font-medium ${eligibility.color}`}>
-            {eligibility.text}
-          </p>
         </div>
-      )}
+
+        {/* Secondary Stats */}
+        <div className="border-t border-light-border dark:border-dark-border px-5 py-3">
+          <div className="flex items-center justify-around text-center">
+            <div>
+              <p className="text-lg font-bold text-light-text dark:text-dark-text tabular-nums">{results.grossWPM}</p>
+              <p className="text-[10px] text-light-subtext dark:text-dark-subtext">Gross WPM</p>
+            </div>
+            <div className="w-px h-8 bg-light-border dark:bg-dark-border" />
+            <div>
+              <p className="text-lg font-bold text-light-text dark:text-dark-text tabular-nums">{results.totalErrors}</p>
+              <p className="text-[10px] text-light-subtext dark:text-dark-subtext">Errors</p>
+            </div>
+            <div className="w-px h-8 bg-light-border dark:bg-dark-border" />
+            <div>
+              <p className="text-lg font-bold text-light-text dark:text-dark-text tabular-nums">{results.totalCharactersTyped}</p>
+              <p className="text-[10px] text-light-subtext dark:text-dark-subtext">Characters</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Eligibility, exam mode only */}
+        {mode === 'exam' && (
+          <div className={`border-t border-light-border dark:border-dark-border px-5 py-3 flex items-center gap-3 ${eligibility.bg}`}>
+            <TrendingUp size={14} className={eligibility.color} />
+            <p className={`text-xs font-medium ${eligibility.color}`}>
+              {eligibility.text}
+            </p>
+          </div>
+        )}
+      </div>
 
       <AdUnit slot="results" className="mt-5" />
 

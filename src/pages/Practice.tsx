@@ -12,7 +12,7 @@ import type { Difficulty as PassageDifficulty } from '../data/passages'
 
 type Mode = 'exam' | 'practice'
 type ExamTime = 3 | 5 | 10
-type PracticeTime = 3 | 5 | 10 | 0
+type PracticeTime = 3 | 5 | 10 | 0 | 'custom'
 type Difficulty = PassageDifficulty | 'custom'
 
 const EXAM_TIMES: ExamTime[] = [3, 5, 10]
@@ -21,6 +21,7 @@ const PRACTICE_TIMES: { label: string; value: PracticeTime }[] = [
   { label: '5 min', value: 5 },
   { label: '10 min', value: 10 },
   { label: 'Unlimited', value: 0 },
+  { label: 'Custom', value: 'custom' },
 ]
 
 const DIFFICULTIES: { label: string; value: Difficulty }[] = [
@@ -40,10 +41,13 @@ const Practice = () => {
   const [mode, setMode] = useState<Mode>('exam')
   const [examTime, setExamTime] = useState<ExamTime>(3)
   const [practiceTime, setPracticeTime] = useState<PracticeTime>(3)
+  const [customMinutes, setCustomMinutes] = useState('15')
+  const [showCustomTime, setShowCustomTime] = useState(false)
   const [difficulty, setDifficulty] = useState<Difficulty>('easy')
   const [customPassage, setCustomPassage] = useState('')
   const [setupDone, setSetupDone] = useState(false)
   const [showCustomPassage, setShowCustomPassage] = useState(false)
+  const [hasTypedCustom, setHasTypedCustom] = useState(false)
   const [mockId] = useState(generateMockId) // stable for entire session
 
   const engine = useTypingEngine()
@@ -68,8 +72,12 @@ const Practice = () => {
 
   const handleStart = () => {
     setSetupDone(true)
-    const selectedTime = mode === 'exam' ? examTime : practiceTime
     const isCustom = mode === 'practice' && difficulty === 'custom'
+    const selectedTime = mode === 'exam'
+      ? examTime
+      : practiceTime === 'custom'
+        ? Math.max(1, Math.min(60, parsedMinutes))
+        : practiceTime
     engine.initTest({
       mode,
       selectedTime,
@@ -90,17 +98,38 @@ const Practice = () => {
     })
   }
 
-  const currentSelectedTime = mode === 'exam' ? examTime : practiceTime
+  const parsedMinutes = Number(customMinutes) || 0
+  const isStartDisabled = (mode === 'practice' && difficulty === 'custom' && !customPassage.trim()) ||
+    (mode === 'practice' && practiceTime === 'custom' && (parsedMinutes < 1 || parsedMinutes > 60))
+  const showCustomError = hasTypedCustom && !customPassage.trim()
+  const showCustomTimeError = showCustomTime && customMinutes !== '' && (parsedMinutes < 1 || parsedMinutes > 60)
+
+  const currentSelectedTime = mode === 'exam'
+    ? examTime
+    : practiceTime === 'custom'
+      ? Math.max(1, Math.min(60, parsedMinutes))
+      : practiceTime
 
   // ─── SETUP SCREEN ────────────────────────────────────────────────────────────
   if (!setupDone || engine.testStatus === 'idle') {
     return (
-      <main className="min-h-screen pt-28 pb-20">
+      <main className="min-h-screen pt-28 pb-20 relative">
         <SEO
           title="ETEA Typing Test Practice"
           description="Free ETEA typing test practice. Choose exam or practice mode. Real government-style passages, instant WPM and accuracy results."
           canonical="/practice"
         />
+
+        {/* Left Sidebar Ad */}
+        <div className="hidden xl:block absolute left-0 top-28">
+          <AdUnit slot="vertical-sidebar" />
+        </div>
+
+        {/* Right Sidebar Ad */}
+        <div className="hidden xl:block absolute right-0 top-28">
+          <AdUnit slot="vertical-sidebar" />
+        </div>
+
         <div className="max-w-2xl mx-auto px-4 flex flex-col gap-8">
 
           {/* Header */}
@@ -197,7 +226,11 @@ const Practice = () => {
                   </p>
                   <Dropdown
                     value={String(practiceTime)}
-                    onChange={val => setPracticeTime(Number(val) as PracticeTime)}
+                    onChange={val => {
+                      const next = val === 'custom' ? 'custom' : (Number(val) as PracticeTime)
+                      setPracticeTime(next)
+                      setShowCustomTime(val === 'custom')
+                    }}
                     options={PRACTICE_TIMES.map(t => ({ value: String(t.value), label: t.label }))}
                   />
                 </div>
@@ -220,6 +253,34 @@ const Practice = () => {
               </div>
             )}
           </div>
+
+          {/* Custom Time — practice mode, custom duration */}
+          {mode === 'practice' && showCustomTime && (
+            <div className="flex flex-col gap-2">
+              <p className="text-xs font-semibold text-light-subtext dark:text-dark-subtext uppercase tracking-wider">
+                Custom Duration
+              </p>
+              <div className="flex items-center gap-3">
+                <input
+                  type="number"
+                  min={1}
+                  max={60}
+                  value={customMinutes}
+                  onChange={e => {
+                    const val = e.target.value
+                    if (val === '' || /^\d{0,2}$/.test(val)) {
+                      setCustomMinutes(val)
+                    }
+                  }}
+                  className="w-24 px-4 py-2.5 rounded-xl border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface text-light-text dark:text-dark-text text-sm outline-none focus:border-primary-500 transition-colors duration-200 font-mono"
+                />
+                <span className="text-sm text-light-subtext dark:text-dark-subtext">minutes (1–60)</span>
+              </div>
+              {showCustomTimeError && (
+                <p className="text-xs text-red-500 dark:text-red-400">Please enter a value between 1 and 60 minutes</p>
+              )}
+            </div>
+          )}
 
           {/* Custom Passage — practice mode, custom difficulty */}
           {mode === 'practice' && difficulty === 'custom' && (
@@ -248,11 +309,17 @@ const Practice = () => {
                   </div>
                   <textarea
                     value={customPassage}
-                    onChange={e => setCustomPassage(e.target.value)}
+                    onChange={e => {
+                      setCustomPassage(e.target.value)
+                      if (e.target.value.length > 0) setHasTypedCustom(true)
+                    }}
                     placeholder="Paste your own passage here..."
                     rows={5}
                     className="w-full px-4 py-3 rounded-xl border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface text-light-text dark:text-dark-text text-sm outline-none focus:border-primary-500 transition-colors duration-200 placeholder:text-light-subtext/40 dark:placeholder:text-dark-subtext/40 resize-none font-mono"
                   />
+                  {showCustomError && (
+                    <p className="text-xs text-red-500 dark:text-red-400">Please enter a passage to continue</p>
+                  )}
                 </div>
               )}
             </div>
@@ -261,11 +328,17 @@ const Practice = () => {
           {/* Start Button */}
           <button
             onClick={handleStart}
-            className="w-full py-3.5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-bold text-base tracking-wide transition-all duration-200 shadow-lg shadow-primary-500/25 hover:shadow-primary-500/40 hover:scale-[1.02]"
+            disabled={isStartDisabled}
+            title={isStartDisabled ? (practiceTime === 'custom' && (parsedMinutes < 1 || parsedMinutes > 60) ? 'Please enter a valid duration (1–60 minutes)' : 'Please enter a custom passage to continue') : undefined}
+            className={`w-full py-3.5 rounded-xl font-bold text-base tracking-wide transition-all duration-200 ${
+              isStartDisabled
+                ? 'bg-light-border dark:bg-dark-border text-light-subtext dark:text-dark-subtext cursor-not-allowed'
+                : 'bg-primary-600 hover:bg-primary-700 text-white shadow-lg shadow-primary-500/25 hover:shadow-primary-500/40 hover:scale-[1.02]'
+            }`}
           >
             {mode === 'exam'
               ? `Start ${examTime} Minute Exam`
-              : `Start ${practiceTime === 0 ? 'Unlimited' : `${practiceTime} Minute`} ${difficulty === 'custom' ? 'Custom' : difficulty.charAt(0).toUpperCase() + difficulty.slice(1)} Practice`
+              : `Start ${practiceTime === 0 ? 'Unlimited' : practiceTime === 'custom' ? `${parsedMinutes} Minute` : `${practiceTime} Minute`} ${difficulty === 'custom' ? 'Custom' : difficulty.charAt(0).toUpperCase() + difficulty.slice(1)} Practice`
             }
           </button>
 
@@ -279,7 +352,17 @@ const Practice = () => {
   // ─── FINISHED STATE (shared between modes) ───────────────────────────────────
   if (engine.testStatus === 'finished' && engine.results) {
     return (
-      <div className="min-h-screen bg-light-bg dark:bg-dark-bg">
+      <div className="min-h-screen bg-light-bg dark:bg-dark-bg relative">
+        {/* Left Sidebar Ad */}
+        <div className="hidden xl:block absolute left-0 top-24">
+          <AdUnit slot="vertical-sidebar" />
+        </div>
+
+        {/* Right Sidebar Ad */}
+        <div className="hidden xl:block absolute right-0 top-24">
+          <AdUnit slot="vertical-sidebar" />
+        </div>
+
         <div className="max-w-2xl mx-auto px-4 pt-24 pb-20">
           <ResultsCard
             results={engine.results}
