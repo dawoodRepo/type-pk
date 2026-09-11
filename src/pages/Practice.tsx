@@ -121,7 +121,7 @@ const Practice = () => {
         />
 
         {/* Right Sidebar Ad */}
-        <div className="hidden xl:block absolute right-0 top-28">
+        <div className="xl:absolute xl:right-0 xl:top-44 mt-8 xl:mt-0 flex justify-center">
           <AdUnit slot="vertical-sidebar" />
         </div>
 
@@ -347,7 +347,7 @@ const Practice = () => {
     return (
       <div className="min-h-screen bg-light-bg dark:bg-dark-bg relative">
         {/* Right Sidebar Ad */}
-        <div className="hidden xl:block absolute right-0 top-24">
+        <div className="xl:absolute xl:right-0 xl:top-48 mt-8 xl:mt-0 flex justify-center">
           <AdUnit slot="vertical-sidebar" />
         </div>
 
