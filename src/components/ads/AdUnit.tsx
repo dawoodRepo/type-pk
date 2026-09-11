@@ -35,24 +35,23 @@ const AdUnit = ({ slot, className = '' }: AdUnitProps) => {
     const config = AD_CONFIG[slot]
     if (!config) return
 
-    const configScript = document.createElement('script')
-    configScript.type = 'text/javascript'
-    configScript.innerHTML = `
-      atOptions = {
-        'key' : '${config.key}',
-        'format' : 'iframe',
-        'height' : ${config.height},
-        'width' : ${config.width},
-        'params' : {}
+    const adScript = document.createElement('script')
+    adScript.type = 'text/javascript'
+    adScript.innerHTML = `
+      window.atOptions = {
+        'key': '${config.key}',
+        'format': 'iframe',
+        'height': ${config.height},
+        'width': ${config.width},
+        'params': {}
       };
+      (function() {
+        var s = document.createElement('script');
+        s.src = '//www.${config.domain}/${config.key}/invoke.js';
+        document.currentScript.parentNode.appendChild(s);
+      })();
     `
-
-    const invokeScript = document.createElement('script')
-    invokeScript.type = 'text/javascript'
-    invokeScript.src = `//www.${config.domain}/${config.key}/invoke.js`
-
-    containerRef.current.appendChild(configScript)
-    containerRef.current.appendChild(invokeScript)
+    containerRef.current.appendChild(adScript)
   }, [slot])
 
   if (!ADS_ENABLED) return null
