@@ -364,7 +364,7 @@ const Practice = () => {
         </div>
 
         {/* Ad */}
-        <div className="flex justify-center -mt-4">
+        <div className="flex justify-center -mt-2">
           <AdUnit slot="vertical-sidebar" />
         </div>
       </div>
