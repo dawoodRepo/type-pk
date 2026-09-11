@@ -9,7 +9,7 @@ const AD_CONFIG: Record<string, { key: string; width: number; height: number; do
   'top-banner': { key: '5fb26772792f7f9ef0a07a7c44c9f8df', width: 728, height: 90, domain: 'highperformanceformat.com' },
   'blog-inline': { key: '5fb26772792f7f9ef0a07a7c44c9f8df', width: 728, height: 90, domain: 'highperformanceformat.com' },
   'results': { key: 'c8dd20a1b2cfc9a9726304fae79407ea', width: 300, height: 250, domain: 'highperformanceformat.com' },
-  'vertical-sidebar': { key: 'c8dd20a1b2cfc9a9726304fae79407ea', width: 300, height: 250, domain: 'highperformanceformat.com' },
+  'vertical-sidebar': { key: '996c82540f6153263d2cbe58fbd02696', width: 160, height: 600, domain: 'highrevenueformat.com' },
 }
 
 const AD_SIZES: Record<string, string> = {

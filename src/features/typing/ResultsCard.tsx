@@ -1,7 +1,7 @@
 import type { TestResult } from '../../types'
 import { RotateCcw, TrendingUp, ArrowLeft } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import AdUnit from '../../components/ads/AdUnit'
+
 
 interface ResultsCardProps {
   results: TestResult
@@ -206,8 +206,6 @@ const ResultsCard = ({ results, onTryAgain, onExit, selectedTime, mode }: Result
           </div>
         )}
       </div>
-
-      <AdUnit slot="results" className="mt-5" />
 
     </div>
   )
