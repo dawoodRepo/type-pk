@@ -113,17 +113,12 @@ const Practice = () => {
   // ─── SETUP SCREEN ────────────────────────────────────────────────────────────
   if (!setupDone || engine.testStatus === 'idle') {
     return (
-      <main className="min-h-screen pt-28 pb-20 relative">
+      <main className="min-h-screen pt-20 pb-20">
         <SEO
           title="ETEA Typing Test Practice"
           description="Free ETEA typing test practice. Choose exam or practice mode. Real government-style passages, instant WPM and accuracy results."
           canonical="/practice"
         />
-
-        {/* Right Sidebar Ad */}
-        <div className="xl:absolute xl:right-0 xl:top-44 mt-8 xl:mt-0 flex justify-center">
-          <AdUnit slot="vertical-sidebar" />
-        </div>
 
         <div className="max-w-2xl mx-auto px-4 flex flex-col gap-8">
 
@@ -338,6 +333,11 @@ const Practice = () => {
           </button>
 
         </div>
+
+        {/* Right Sidebar Ad */}
+        <div className="flex justify-center mt-8">
+          <AdUnit slot="vertical-sidebar" />
+        </div>
       </main>
     )
   }
@@ -345,13 +345,8 @@ const Practice = () => {
   // ─── FINISHED STATE (shared between modes) ───────────────────────────────────
   if (engine.testStatus === 'finished' && engine.results) {
     return (
-      <div className="min-h-screen bg-light-bg dark:bg-dark-bg relative">
-        {/* Right Sidebar Ad */}
-        <div className="xl:absolute xl:right-0 xl:top-48 mt-8 xl:mt-0 flex justify-center">
-          <AdUnit slot="vertical-sidebar" />
-        </div>
-
-        <div className="max-w-2xl mx-auto px-4 pt-24 pb-20">
+      <div className="min-h-screen bg-light-bg dark:bg-dark-bg">
+        <div className="max-w-2xl mx-auto px-4 pt-16 pb-4">
           <ResultsCard
             results={engine.results}
             onTryAgain={() => engine.initTest({
@@ -366,6 +361,11 @@ const Practice = () => {
             selectedTime={currentSelectedTime}
             mode={mode}
           />
+        </div>
+
+        {/* Ad */}
+        <div className="flex justify-center -mt-4">
+          <AdUnit slot="vertical-sidebar" />
         </div>
       </div>
     )

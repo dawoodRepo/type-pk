@@ -99,7 +99,7 @@ const ResultsCard = ({ results, onTryAgain, onExit, selectedTime, mode }: Result
   const eligibility = getEligibilityStatus(results.netWPM, results.accuracy)
 
   return (
-    <div className="flex flex-col pb-20">
+    <div className="flex flex-col">
 
       {/* Header */}
       <div className="flex items-center justify-between gap-3 mb-2">
