@@ -120,11 +120,6 @@ const Practice = () => {
           canonical="/practice"
         />
 
-        {/* Left Sidebar Ad */}
-        <div className="hidden xl:block absolute left-0 top-28">
-          <AdUnit slot="vertical-sidebar" />
-        </div>
-
         {/* Right Sidebar Ad */}
         <div className="hidden xl:block absolute right-0 top-28">
           <AdUnit slot="vertical-sidebar" />
@@ -342,8 +337,6 @@ const Practice = () => {
             }
           </button>
 
-          <AdUnit slot="top-banner" />
-
         </div>
       </main>
     )
@@ -353,11 +346,6 @@ const Practice = () => {
   if (engine.testStatus === 'finished' && engine.results) {
     return (
       <div className="min-h-screen bg-light-bg dark:bg-dark-bg relative">
-        {/* Left Sidebar Ad */}
-        <div className="hidden xl:block absolute left-0 top-24">
-          <AdUnit slot="vertical-sidebar" />
-        </div>
-
         {/* Right Sidebar Ad */}
         <div className="hidden xl:block absolute right-0 top-24">
           <AdUnit slot="vertical-sidebar" />
